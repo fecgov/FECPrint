@@ -1,0 +1,1 @@
+java -Xms1024m -Xmx6000m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\itext-2.1.7.jar;.\lib\jxbrowser-2.7.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\mshtml.jar;.\lib\winpack-3.8.jar; com.nictusa.fecprint.FECPrint %*

@@ -1,0 +1,113 @@
+<project name="fecprintpdf" default="cross_platform" basedir=".">
+	 <property name="src.dir" value="src/"/> 
+	 <property name="dist.dir" value="build"/> 
+	 <property name="out.instr.dir" value="${basedir}/outinstr" />
+	 <property name="coverage.dir" value="coverage/"/> 
+	 <property name="filters.dir" value="configuration"/>
+	 <property name="app.props.dir" value="platform"/>
+	 <property name="class.dir" value="bin/classes"/>
+	 <property name="lib.dir" value="lib"/>	 
+	
+	
+	<target name="cross_platform-init">
+		<property name="destination" value="cross_platform" />
+		<property name="archive.name" value="fecprintpdf" />
+	</target>
+	<target name="cross_platform"  depends="cross_platform-init">
+		<antcall target="clean"/>		
+		<antcall target="build"/>
+	</target>
+	
+	
+	<target name="windows-init">
+		<property name="destination" value="windows" />
+		<property name="archive.name" value="fecprintpdf" />
+	</target>
+	<target name="windows"  depends="windows-init">
+		<antcall target="clean"/>		
+		<antcall target="build"/>
+	</target>
+	
+	<target name="linux-init">
+		<property name="destination" value="linux" />
+		<property name="archive.name" value="fecprintpdf" />
+	</target>
+	
+	<target name="linux"  depends="linux-init">
+		<antcall target="clean"/>
+		<antcall target="build"/>
+	</target>	
+	
+	<target name="mac-init">
+		<property name="destination" value="mac" />
+		<property name="archive.name" value="fecprintpdf" />
+	</target>
+	<target name="mac"  depends="mac-init">
+		<antcall target="clean"/>		
+		<antcall target="build"/>
+        </target>
+        
+        <path id="master-classpath" description="Master CLASSPATH for this script">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${class.dir}" />
+	</path>
+	
+	<target name="startupdirs">
+		<mkdir dir="${class.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+	
+	
+	<target name="compile" depends="startupdirs" 
+		description="Compiles .java files">
+		<javac srcdir="${src.dir}" destdir="${class.dir}" debug="true" 
+			failonerror="true" classpathref="master-classpath" 
+			depend="true"/>
+	</target>
+	
+	
+	<target name="build" depends="compile" description="FECPrint distribution">
+		<copy file="${basedir}/readme.txt" tofile="${dist.dir}/readme.txt" filtering="false"/>		
+		<copy  todir="${dist.dir}">
+			<fileset dir="${basedir}">
+				<include name="*.png" />
+				<include name="fecprintsplash.jpg" />
+			</fileset>
+			
+		</copy>
+		<copy  todir="${dist.dir}/mapping">
+			<fileset dir="${basedir}/mapping"/>
+		</copy>
+		<copy  todir="${dist.dir}/lib">
+			<fileset dir="${basedir}/lib">
+				<include name="commons-io-1.4.jar" />
+				<include name="commons-lang-2.4.jar" />
+				<include name="commons-logging.jar" />
+				<include name="itext-2.1.7.jar" />
+				<include name="jxbrowser-2.9.jar" />
+				<include name="license.jar" />
+				<include name="log4j-1.2.15.jar" />
+				<include name="slf4j-api-1.5.8.jar" />
+				<include name="slf4j-log4j12-1.5.8.jar" />
+			</fileset>
+		</copy>
+		<copy  todir="${dist.dir}/lib">
+			<fileset dir="${basedir}/lib/${destination}"/>
+		</copy>
+		<copy  todir="${dist.dir}/resources">
+			<fileset dir="${basedir}/resources"/>
+		</copy>
+		<copy  todir="${dist.dir}">
+			<fileset dir="${app.props.dir}/${destination}"/>
+		</copy>
+		<jar destfile="${dist.dir}\fecprint.jar" basedir="${class.dir}" includes="com/nictusa/fecprint/**" />
+		<zip destfile="${basedir}/${archive.name}_${destination}.zip" basedir="${dist.dir}"></zip>
+	</target>
+	
+	<target name="clean" description="Clean output directories">
+		<delete failonerror="true" dir="${class.dir}" />				
+		<delete failonerror="false" dir="${dist.dir}" />				
+	</target>    
+</project>

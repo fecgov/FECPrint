@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/license.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/windows/engine-ie.jar"/>
+	<classpathentry kind="lib" path="lib/jxbrowser-2.9.jar"/>
+	<classpathentry kind="lib" path="lib/windows/engine-gecko.jar"/>
+	<classpathentry kind="lib" path="lib/windows/MozillaGlue.jar"/>
+	<classpathentry kind="lib" path="lib/windows/MozillaInterfaces.jar"/>
+	<classpathentry kind="lib" path="lib/windows/winpack-3.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/windows/xulrunner-windows.jar"/>
+	<classpathentry kind="lib" path="lib/itext-2.1.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
