@@ -1,0 +1,9 @@
+package gov.fec.efo.fecprint.data;
+
+public enum BaseRecordType {	
+		
+		HDR,F1, F1M, F2, F3, F3L, F3P, F3X, F4, F5, F6, F7, F8, F9,F10,F13,F24, F99, LASTFORM,
+		F1S,F2S, F3S, F3PS, F3P31AL, F3S1, ETEXT,F56, F57, F65, F76, F82, F83,	
+		SA, SA3L, SB, SB3L, SC, SC1,SC1_3P,SC2, SD, SE, SF, SI, H1, H2, H3, H4, H5,H6,F91,F92,F93,F94,F105,F132,F133,SL,SASL, SBSL,F3Z,		
+		TEXT	
+}
