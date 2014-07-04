@@ -36,7 +36,7 @@ public class DataBuilder {
 	private int totalPages;	
 	private int totalLines = 0;
 	
-	public static final char FIELD_DELIMITER = ',';
+	public static final char FIELD_DELIMITER = 28;
 
 	public DataBuilder(String flName) throws Exception
 	{
