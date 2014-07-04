@@ -16,6 +16,10 @@ done
 PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR" >/dev/null; pwd`
 
+# Some FECPrint routines do not handle relative paths correctly, so make sure
+# we are in the basedir
+cd $BASEDIR
+
 # Reset the REPO variable. If you need to influence this use the environment setup file.
 REPO=
 @ENV_SETUP@
