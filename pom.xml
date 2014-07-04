@@ -173,6 +173,21 @@
               </jvmSettings>
             </program>
             <program>
+              <mainClass>gov.fec.efo.fecprint.paginate.Pagination</mainClass>
+              <id>fecprint-paginate</id>
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+              <jvmSettings>
+                <initialMemorySize>128m</initialMemorySize>
+                <maxMemorySize>6144m</maxMemorySize>
+                <extraArguments>
+                  <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
+                </extraArguments>
+              </jvmSettings>
+            </program>
+
+            <program>
               <mainClass>gov.fec.efo.fecprint.FECPrint</mainClass>
               <id>fecprint-run</id>
               <platforms>

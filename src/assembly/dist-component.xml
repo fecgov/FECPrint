@@ -46,6 +46,14 @@
       <fileMode>0755</fileMode>
       <lineEnding>unix</lineEnding>
     </file>
+    <file>
+      <source>${project.build.directory}/appassembler/bin/fecprint-paginate.sh</source>
+      <outputDirectory>/</outputDirectory>
+      <destName>paginate.sh</destName>
+      <fileMode>0755</fileMode>
+      <lineEnding>unix</lineEnding>
+    </file>
+
   </files>
   <dependencySets>
     <dependencySet>
