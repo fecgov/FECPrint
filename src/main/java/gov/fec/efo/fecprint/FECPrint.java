@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogConfigurationException;
 import org.apache.commons.logging.LogFactory;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 import gov.fec.efo.fecprint.data.DataBuilder;
 import gov.fec.efo.fecprint.gui.FECPrintMainWindow;
 import gov.fec.efo.fecprint.paginate.Pagination;

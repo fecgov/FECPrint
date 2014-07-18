@@ -23,7 +23,7 @@ import javax.swing.tree.TreeSelectionModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 import gov.fec.efo.fecprint.FECPrintHelper;
 import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.data.DataBuilder;

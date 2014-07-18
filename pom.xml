@@ -123,9 +123,9 @@
       <classifier>windows</classifier>
     </dependency>
     <dependency>
-      <groupId>com.lowagie</groupId>
-      <artifactId>itext</artifactId>
-      <version>4.2.1</version>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.3.2</version>
     </dependency>
   </dependencies>
   <build>
@@ -186,7 +186,20 @@
                 </extraArguments>
               </jvmSettings>
             </program>
-
+            <program>
+              <mainClass>gov.fec.efo.fecprint.burst.BurstPDF</mainClass>
+              <id>fecprint-burst</id>
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+              <jvmSettings>
+                <initialMemorySize>128m</initialMemorySize>
+                <maxMemorySize>6144m</maxMemorySize>
+                <extraArguments>
+                  <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
+                </extraArguments>
+              </jvmSettings>
+            </program>
             <program>
               <mainClass>gov.fec.efo.fecprint.FECPrint</mainClass>
               <id>fecprint-run</id>
