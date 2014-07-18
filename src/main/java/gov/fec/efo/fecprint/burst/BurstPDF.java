@@ -1,4 +1,4 @@
-package gov.fec.efo.burst;
+package gov.fec.efo.fecprint.burst;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
