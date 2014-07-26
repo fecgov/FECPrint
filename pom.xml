@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <name>FEC Electronic Filing PDF Imaging</name>
   <url>http://www.fec.gov</url>
-  <version>8.1</version>
+  <version>8.1.0.1a</version>
   <repositories>
     <repository>
       <id>EFO Nexus 3rd Party</id>
