@@ -272,13 +272,11 @@
   </build>
   <distributionManagement>
     <repository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
+      <id>efo-releases</id>
       <url>http://jenkins-s1-01.efsi-fec.local:8081/nexus/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
+      <id>efo-snapshot</id>
       <url>http://jenkins-s1-01.efsi-fec.local:8081/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
