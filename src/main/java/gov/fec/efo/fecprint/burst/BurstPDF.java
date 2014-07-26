@@ -22,12 +22,16 @@ import java.net.MalformedURLException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogConfigurationException;
+import org.apache.commons.logging.LogFactory;
 
-public class BurstPDF
-{
-  public static void main(String[] args)
-    throws Exception
-  {
+public class BurstPDF {
+
+	private static final Log logger = LogFactory.getLog(BurstPDF.class);
+
+  public static void main(String[] args) throws Exception {
+
     File pdfSource = new File(args[0]);
     File dirPDF = new File(args[1]);
     try
@@ -51,8 +55,7 @@ public class BurstPDF
     }
     catch (Exception e)
     {
-      System.out.println("ERROR: " + e.getMessage() + " " + pdfSource.getAbsolutePath());
-      e.printStackTrace();
+      logger.error(e.getMessage() + " " + pdfSource.getAbsolutePath(), e);
       System.exit(9);
     }
   }
