@@ -40,7 +40,7 @@ public class Utility
 		logger.info("Total memory " + Runtime.getRuntime().totalMemory()/1000000 + " M");
 		logger.info("Available Before GC " + Runtime.getRuntime().freeMemory()/1000000 + " M");
 		logger.info("Starting GC at " + new Date());
-		System.gc();
+//		System.gc();
 		logger.info("Ending GC at " + new Date());
 		logger.info("Available After GC " + Runtime.getRuntime().freeMemory()/1000000 + " M");
 		logger.info("###########################");
