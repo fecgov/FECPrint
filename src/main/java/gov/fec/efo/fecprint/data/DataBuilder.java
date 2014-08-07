@@ -74,7 +74,7 @@ public class DataBuilder {
 			int lineNo = 0;
 			try {
 			while ((line = in.readLine()) != null) { 
-
+totalLines++;
 //while(lineList.size() > 0) {
 
 				lineNo++;
@@ -419,6 +419,7 @@ public class DataBuilder {
 		while(input.size() > 0)
 		{
 */
+totalLines++;
 		while ((line = br.readLine()) != null) {
 //			line = (String)input.remove(0);
 			if(line.equals("[BEGINTEXT]") || line.equals("[ENDTEXT]"))
