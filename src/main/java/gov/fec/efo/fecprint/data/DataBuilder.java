@@ -4,6 +4,7 @@
 package gov.fec.efo.fecprint.data;
 
 import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,6 +44,7 @@ public class DataBuilder {
 		dataFileName = flName;		
 		recordBuckets = new TreeMap<RecordType,Vector<Record>>();
 		totalPages = 0;
+/*
 		FileReader reader = null;
 		List lineList = null;
 		
@@ -65,26 +67,35 @@ public class DataBuilder {
 			int lineNo  = 0;
 			totalLines = lineList.size();
 			logger.debug("Total lines in data file = " + totalLines);
-			while(lineList.size() > 0)
-			{
+*/
+
+			BufferedReader in = new BufferedReader(new FileReader(dataFileName));
+			String line = null;
+			int lineNo = 0;
+			try {
+			while ((line = in.readLine()) != null) { 
+
+//while(lineList.size() > 0) {
+
 				lineNo++;
+/*
 				if(lineNo%100000 == 0)
 				{
 					Utility.freeUpMemory("In Databuilder. Memory cleanup after processing " + lineNo + " lines.");					
 				}
 				line = (String)lineList.remove(0);
-				
+*/				
 				if(StringUtils.isBlank(line)  || line.startsWith("#") == true)
 					continue;
 				StrTokenizer tok = new StrTokenizer(line,FIELD_DELIMITER,'"');
 				tok.setEmptyTokenAsNull(false);
 				tok.setIgnoreEmptyTokens(false);
-				ArrayList<String> lst = new ArrayList<String>(tok.size());
+				ArrayList<String> lst = new ArrayList<String>();
+//tok.size());
 				while(tok.hasNext())
 				{
 					lst.add((String)tok.next());
 				}
-logger.debug(lst.toString());
 
 				RecordType t = RecordHelper.getRecordType(lst.get(0),null);
 				
@@ -93,7 +104,7 @@ logger.debug(lst.toString());
 					trimToSize();
 					if(lineNo > 3)
 					{
-						recordBuckets.put(t, new Vector(totalLines - lineNo + 1));
+						recordBuckets.put(t, new Vector()); //totalLines - lineNo + 1));
 					}
 					else
 					{
@@ -114,12 +125,21 @@ logger.debug(lst.toString());
 					if(formType.equals(BaseRecordType.F99))
 					{
 						logger.debug("Reading F99 text");
-						String lines = getF99Text(lineList);
+						String lines = getF99Text(in); //lineList);
 						RecordHelper.expandArrayTo(15, newRec.getData());
 						newRec.getData().add(lines);		
 					}
 				}
 			}
+
+}
+                        finally
+                        {
+                                if(in != null)
+                                {
+                                        in.close();
+                                }
+                        }
 			
 			Utility.freeUpMemory("Done Building records");
 			
@@ -210,6 +230,7 @@ logger.debug(lst.toString());
 							Vector<Record> childrens = extractMatchingRecords(recordBuckets.get(RecordType.TEXT), rP.getType().getType().name(), RecordConstants.BACK_REF_SCH_FORM_NAME_POS);
 							rP.addChildRecords(RecordType.TEXT, childrens);
 							break;
+
 						}
 					}
 					
@@ -389,13 +410,17 @@ logger.debug(lst.toString());
 		return vExtracted;
 	}
 	
-	private String getF99Text(List input) throws IOException
+//	private String getF99Text(List input) throws IOException
+	private String getF99Text(BufferedReader br) throws IOException
 	{
 		String line;
 		StringBuffer lines = new StringBuffer("");		
+/*
 		while(input.size() > 0)
 		{
-			line = (String)input.remove(0);
+*/
+		while ((line = br.readLine()) != null) {
+//			line = (String)input.remove(0);
 			if(line.equals("[BEGINTEXT]") || line.equals("[ENDTEXT]"))
 			{
 				continue;
