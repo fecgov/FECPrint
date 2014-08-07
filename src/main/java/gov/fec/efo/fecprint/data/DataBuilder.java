@@ -44,54 +44,24 @@ public class DataBuilder {
 		dataFileName = flName;		
 		recordBuckets = new TreeMap<RecordType,Vector<Record>>();
 		totalPages = 0;
-/*
-		FileReader reader = null;
-		List lineList = null;
-		
-		
-			
-			try
-			{
-				reader = new FileReader(dataFileName);
-				lineList = IOUtils.readLines(reader);				
-			}
-			finally
-			{
-				if(reader != null)
-				{
-					reader.close();
-				}
-			}
-			
-			String line;
-			int lineNo  = 0;
-			totalLines = lineList.size();
-			logger.debug("Total lines in data file = " + totalLines);
-*/
 
-			BufferedReader in = new BufferedReader(new FileReader(dataFileName));
-			String line = null;
-			int lineNo = 0;
-			try {
+		BufferedReader in = new BufferedReader(new FileReader(dataFileName));
+		String line = null;
+		int lineNo = 0;
+		try {
 			while ((line = in.readLine()) != null) { 
-totalLines++;
-//while(lineList.size() > 0) {
 
+				totalLines++;
 				lineNo++;
-/*
-				if(lineNo%100000 == 0)
-				{
-					Utility.freeUpMemory("In Databuilder. Memory cleanup after processing " + lineNo + " lines.");					
-				}
-				line = (String)lineList.remove(0);
-*/				
-				if(StringUtils.isBlank(line)  || line.startsWith("#") == true)
-					continue;
+
+				if ((StringUtils.isBlank(line) || line.startsWith("#") == true))
+						continue;
+
 				StrTokenizer tok = new StrTokenizer(line,FIELD_DELIMITER,'"');
 				tok.setEmptyTokenAsNull(false);
 				tok.setIgnoreEmptyTokens(false);
 				ArrayList<String> lst = new ArrayList<String>();
-//tok.size());
+
 				while(tok.hasNext())
 				{
 					lst.add((String)tok.next());
@@ -132,48 +102,26 @@ totalLines++;
 				}
 			}
 
-}
-                        finally
-                        {
-                                if(in != null)
-                                {
-                                        in.close();
-                                }
-                        }
-			
-			Utility.freeUpMemory("Done Building records");
-			
-			recordBuckets.remove(RecordType.HDR);
-			
-			associateParentChildRecords();
-			
-			buildPrintReadyData();
-			
-			logger.debug("buildPrintReadyData");
-			
-			Pagination pagination = new Pagination();
-			totalPages = pagination.paginateRecords(this, 1) - 1;
-			
-			
-			////////////////////Generate Log/////////////
-			/*Set set = recordBuckets.keySet();
-			Iterator it = set.iterator();
-			while(it.hasNext())
+		}
+		finally
+		{
+			if (in != null)
 			{
-				logger.debug("");
-				Vector<Record> recs = recordBuckets.get(it.next());			
-				for(int x = 0; x < recs.size(); x++)
-				{
-					logger.debug(recs.get(x));
-				}
+				in.close();
 			}
+		}
 			
-			for(int i = 0; i < getRecordCount();i++)
-			{
-				System.out.println(records.get(i).getPageno());
-			}*/
-			//////////////End Log///////////////
-		
+		recordBuckets.remove(RecordType.HDR);
+	
+		associateParentChildRecords();
+			
+		buildPrintReadyData();
+			
+		logger.debug("buildPrintReadyData");
+			
+		Pagination pagination = new Pagination();
+		totalPages = pagination.paginateRecords(this, 1) - 1;
+			
 	}
 	
 	private void trimToSize()
@@ -410,18 +358,13 @@ totalLines++;
 		return vExtracted;
 	}
 	
-//	private String getF99Text(List input) throws IOException
 	private String getF99Text(BufferedReader br) throws IOException
 	{
 		String line;
 		StringBuffer lines = new StringBuffer("");		
-/*
-		while(input.size() > 0)
-		{
-*/
-totalLines++;
+
 		while ((line = br.readLine()) != null) {
-//			line = (String)input.remove(0);
+			totalLines++;
 			if(line.equals("[BEGINTEXT]") || line.equals("[ENDTEXT]"))
 			{
 				continue;
