@@ -214,7 +214,7 @@
               </jvmSettings>
             </program>
             <program>
-              <mainClass>gov.fec.efo.fecprint.PageCount</mainClass>
+              <mainClass>gov.fec.efo.fecprint.utility.PageCount</mainClass>
               <id>fecprint-pagecount</id>
               <platforms>
                 <platform>unix</platform>
@@ -224,6 +224,7 @@
                 <maxMemorySize>1024m</maxMemorySize>
                 <extraArguments>
                   <extraArgument>-d64</extraArgument>
+                  <extraArgument>-Dlogfile=/opt/efsi/logs/fecprint-pagecount.log</extraArgument>
                 </extraArguments>
               </jvmSettings>
             </program>
@@ -239,6 +240,7 @@
                 <extraArguments>
                   <extraArgument>-d64</extraArgument>
                   <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
+                  <extraArgument>-Dlogfile=/opt/efsi/logs/fecprint-burst.log</extraArgument>
                 </extraArguments>
               </jvmSettings>
             </program>

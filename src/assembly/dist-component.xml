@@ -60,7 +60,13 @@
       <fileMode>0755</fileMode>
       <lineEnding>unix</lineEnding>
     </file>
-
+    <file>
+      <source>${project.build.directory}/appassembler/bin/fecprint-pagecount.sh</source>
+      <outputDirectory>/</outputDirectory>
+      <destName>pagecount.sh</destName>
+      <fileMode>0755</fileMode>
+      <lineEnding>unix</lineEnding>
+    </file>
 
   </files>
   <dependencySets>
