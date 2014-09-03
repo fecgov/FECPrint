@@ -7,6 +7,9 @@
   <name>FEC Electronic Filing PDF Imaging</name>
   <url>http://www.fec.gov</url>
   <version>8.1.0.3-SNAPSHOT</version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <repositories>
     <repository>
       <id>EFO Nexus 3rd Party</id>
@@ -136,8 +139,26 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>true</downloadJavadocs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.8.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -189,6 +210,20 @@
                 <extraArguments>
                   <extraArgument>-d64</extraArgument>
                   <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
+                </extraArguments>
+              </jvmSettings>
+            </program>
+            <program>
+              <mainClass>gov.fec.efo.fecprint.PageCount</mainClass>
+              <id>fecprint-pagecount</id>
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+              <jvmSettings>
+                <initialMemorySize>128m</initialMemorySize>
+                <maxMemorySize>1024m</maxMemorySize>
+                <extraArguments>
+                  <extraArgument>-d64</extraArgument>
                 </extraArguments>
               </jvmSettings>
             </program>
