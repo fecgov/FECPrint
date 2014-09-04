@@ -61,6 +61,13 @@
       <lineEnding>unix</lineEnding>
     </file>
     <file>
+      <source>${project.build.directory}/appassembler/bin/fecprint-timestamp.sh</source>
+      <outputDirectory>/</outputDirectory>
+      <destName>timestamp.sh</destName>
+      <fileMode>0755</fileMode>
+      <lineEnding>unix</lineEnding>
+    </file>
+    <file>
       <source>${project.build.directory}/appassembler/bin/fecprint-pagecount.sh</source>
       <outputDirectory>/</outputDirectory>
       <destName>pagecount.sh</destName>

@@ -228,7 +228,7 @@
                 </extraArguments>
               </jvmSettings>
             </program>
-            <program>
+           <program>
               <mainClass>gov.fec.efo.fecprint.burst.BurstPDF</mainClass>
               <id>fecprint-burst</id>
               <platforms>
@@ -241,6 +241,20 @@
                   <extraArgument>-d64</extraArgument>
                   <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
                   <extraArgument>-Dlogfile=/opt/efsi/logs/fecprint-burst.log</extraArgument>
+                </extraArguments>
+              </jvmSettings>
+            </program>
+            <program>
+              <mainClass>gov.fec.efo.fecprint.burst.BurstPDF</mainClass>
+              <id>fecprint-timestamp</id>
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+              <jvmSettings>
+                <initialMemorySize>128m</initialMemorySize>
+                <maxMemorySize>1024m</maxMemorySize>
+                <extraArguments>
+                  <extraArgument>-Dlogfile=/opt/efsi/logs/fecprint-timestamp.log</extraArgument>
                 </extraArguments>
               </jvmSettings>
             </program>
