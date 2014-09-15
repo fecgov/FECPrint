@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
-public class PdfDataStamper {
+public class PdfDateStamper {
 
 	public static void main(String[] args) throws Exception {
 
@@ -46,15 +46,14 @@ public class PdfDataStamper {
 
 		PdfReader reader = new PdfReader(inputFileName);
 		int n = reader.getNumberOfPages();
-      
+
 		PdfStamper stamp = new PdfStamper(reader, new FileOutputStream(outputFileName));
 
-		for (int i = 0; i < n; i++) {
-        
+		for (int i = 1; i <= n; i++) {
+
 			PdfContentByte cb = stamp.getUnderContent(i);
 			PdfTemplate template = cb.createTemplate(25.0F, 25.0F);
         
-
 			cb.addTemplate(template, 7.0F, 757.0F);
         
 			BaseFont bf2 = BaseFont.createFont("Helvetica", "Cp1252", false);

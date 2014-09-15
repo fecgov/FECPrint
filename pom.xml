@@ -245,7 +245,7 @@
               </jvmSettings>
             </program>
             <program>
-              <mainClass>gov.fec.efo.fecprint.burst.BurstPDF</mainClass>
+              <mainClass>gov.fec.efo.fecprint.utility.PdfDateStamper</mainClass>
               <id>fecprint-timestamp</id>
               <platforms>
                 <platform>unix</platform>
