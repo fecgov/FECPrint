@@ -128,7 +128,12 @@ public class BurstPDF {
     outfile.flush();
     return outfile.toByteArray();
   }
-  
+ 
+// CRD - this method does not seem to be used anywhere and is not good for a variety of reasons
+// iText removed copyAcroForm, which broke Section 508 compatibility in addition to other
+// issues. Also, this method appears to have other issues that may produce unpredictable
+// results. Anything that needs this should use PDFConcatenate, which is more modern
+/*
   public static void combinePdfFiles(List<byte[]> pdfs, File combinedPdfFile)
     throws Exception
   {
@@ -178,4 +183,5 @@ public class BurstPDF {
       document.close();
     }
   }
+*/
 }
