@@ -3,25 +3,19 @@
  */
 package gov.fec.efo.fecprint;
 
+import gov.fec.efo.fecprint.gui.FECPrintMainWindow;
+import gov.fec.efo.fecprint.pdf.PDFConcatenate;
+import gov.fec.efo.fecprint.utility.AppProperties;
+import gov.fec.efo.fecprint.utility.ThreadSafeSimpleDateFormat;
+import gov.fec.efo.fecprint.utility.Utility;
+
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogConfigurationException;
 import org.apache.commons.logging.LogFactory;
-
-import com.itextpdf.text.DocumentException;
-import gov.fec.efo.fecprint.data.DataBuilder;
-import gov.fec.efo.fecprint.gui.FECPrintMainWindow;
-import gov.fec.efo.fecprint.paginate.Pagination;
-import gov.fec.efo.fecprint.pdf.PDFConcatenate;
-import gov.fec.efo.fecprint.utility.AppProperties;
-import gov.fec.efo.fecprint.utility.ThreadSafeSimpleDateFormat;
-import gov.fec.efo.fecprint.utility.Utility;
 
 /**
  * @author Milind
@@ -29,13 +23,11 @@ import gov.fec.efo.fecprint.utility.Utility;
  */
 public class FECPrint {
 
-	static Log logger = null;
+	private final static Log logger = LogFactory.getLog(FECPrint.class);
 	
 	public static void main(String[] args) 
 	{
 		try {
-			
-			logger = LogFactory.getLog(Class.forName("gov.fec.efo.fecprint.FECPrint"));
 			
 			String fileName = null;
 			long startImagingAt = 1;
@@ -65,15 +57,12 @@ public class FECPrint {
 				}
 				
 				
-				System.out.println("Started at " + new Date());
 				logger.info("Started at " + new Date());
 				
 				logger.info("No of Program arguments " + args.length);
-				System.out.println("No of Program arguments " + args.length);
 				for(int r = 0 ; r < args.length; r++)
 				{
 					logger.info("Program argument #" + r + " = " + args[r]);
-					System.out.println("Program argument #" + r + " = " + args[r]);
 				}
 				
 				//Get all the arguments passed to the program
@@ -112,7 +101,6 @@ public class FECPrint {
 					}*/					
 					else
 					{
-						System.out.println("Unknown argument passed to the program : " + args[i]);
 						logger.error("Unknown argument passed to the program : " + args[i]);
 						usageInfo();
 					}

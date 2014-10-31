@@ -1,5 +1,20 @@
 package gov.fec.efo.fecprint;
 
+import gov.fec.efo.fecprint.data.DataBuilder;
+import gov.fec.efo.fecprint.data.Record;
+import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.gui.PDFGenerationProgressDialog;
+import gov.fec.efo.fecprint.layout.Page;
+import gov.fec.efo.fecprint.layout.PageManager;
+import gov.fec.efo.fecprint.pdf.PDFConcatenate;
+import gov.fec.efo.fecprint.pdf.PDFConcatenateTaskListener;
+import gov.fec.efo.fecprint.pdf.PDFStamperRealTime;
+import gov.fec.efo.fecprint.pdf.PDFStamperTask;
+import gov.fec.efo.fecprint.pdf.PDFStamperTaskListener;
+import gov.fec.efo.fecprint.pdf.SegregatedPagesTask;
+import gov.fec.efo.fecprint.pdf.SegregatedPagesTaskListener;
+import gov.fec.efo.fecprint.utility.Utility;
+
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.io.File;
@@ -18,20 +33,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.itextpdf.text.DocumentException;
-import gov.fec.efo.fecprint.data.DataBuilder;
-import gov.fec.efo.fecprint.data.Record;
-import gov.fec.efo.fecprint.data.RecordType;
-import gov.fec.efo.fecprint.gui.PDFGenerationProgressDialog;
-import gov.fec.efo.fecprint.layout.Page;
-import gov.fec.efo.fecprint.layout.PageManager;
-import gov.fec.efo.fecprint.pdf.PDFConcatenate;
-import gov.fec.efo.fecprint.pdf.PDFConcatenateTaskListener;
-import gov.fec.efo.fecprint.pdf.PDFStamperRealTime;
-import gov.fec.efo.fecprint.pdf.PDFStamperTask;
-import gov.fec.efo.fecprint.pdf.PDFStamperTaskListener;
-import gov.fec.efo.fecprint.pdf.SegregatedPagesTask;
-import gov.fec.efo.fecprint.pdf.SegregatedPagesTaskListener;
-import gov.fec.efo.fecprint.utility.Utility;
 
 public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTaskListener, SegregatedPagesTaskListener{
 	
@@ -69,8 +70,9 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 	
 	private boolean buildPages(TreeMap<RecordType, Vector<Record>> recordBuckets) throws IOException
 	{
-		Set set = recordBuckets.keySet();
-		Iterator it = set.iterator();
+		Set<RecordType> set = recordBuckets.keySet();
+		Iterator<RecordType> it = set.iterator();
+		
 		while(it.hasNext())
 		{
 			Vector<Record> recs = recordBuckets.get(it.next());
@@ -179,7 +181,8 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 				Desktop desktop = Desktop.getDesktop();
 				if(desktop != null)
 				{
-					File file = new File(outputDirectory.getAbsolutePath() + File.separator +  outputFileName); 
+					File file = new File(outputDirectory.getAbsolutePath() + File.separator +  outputFileName);
+					
 					FileChannel channel = new RandomAccessFile(file, "rw").getChannel(); 
 					for(int t = 0; t < 5; t++)
 					{

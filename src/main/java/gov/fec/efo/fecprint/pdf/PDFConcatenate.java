@@ -3,28 +3,21 @@
  */
 package gov.fec.efo.fecprint.pdf;
 
+import gov.fec.efo.fecprint.utility.AppProperties;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.math.IntRange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfSmartCopy;
-import gov.fec.efo.fecprint.data.BaseRecordType;
-import gov.fec.efo.fecprint.layout.PageManager;
-import gov.fec.efo.fecprint.utility.AppProperties;
-import gov.fec.efo.fecprint.utility.Utility;
 /**
 
 /**
@@ -38,7 +31,7 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	String opDir,opFileName;
 	int startPg,endPg;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Log logger = LogFactory.getLog(PDFConcatenate.class);
 	
 	public PDFConcatenate(String opDir,String opFileName,int startPg, int endPg) throws DocumentException, IOException
 	{
@@ -57,11 +50,19 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 		try
 		{
 			boolean purgePages = AppProperties.deletePagePdfFilesAfterConcatination();
-			logger.debug("AppProperties.deletePagePdfFilesAfterConcatination = " + purgePages);
+			
+			if (purgePages) {
+				logger.debug("Will purge individual pages after concatenation completes");
+			} else {
+				logger.debug("Will NOT purge individual pages after concatenation completes");
+			}
+			
 			document = new Document();			
 			PdfSmartCopy copy = new PdfSmartCopy(document, new FileOutputStream(opDir + File.separator + opFileName));
-			document.open();
 			copy.setFullCompression();			
+			document.open();
+			
+			logger.info("Pages to concatenate: " + (endPg - startPg + 1));
 			
 			for(int pg = startPg; pg <= endPg; pg++)
 			{
@@ -79,17 +80,8 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 				{
 					FileUtils.deleteQuietly(new File(opDir + File.separator + pg + ".pdf"));
 				}
-				else
-				{
-					compressPdf(pg);
-				}
 				
-				if(pg%10000 == 0)
-				{
-					Utility.freeUpMemory("In PDFConcatenate. Memory cleanup after processing 10000 pages");
-				}
-				
-				if(pg%100 == 0)
+				if(pg%1000 == 0)
 				{
 					fireListenersTaskProgress(pg);					
 				}
@@ -99,7 +91,7 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 		}
 		catch(Exception e)
 		{
-			logger.error("Error in concatenation thread", e);
+			logger.error("Error in concatenation thread: " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -111,54 +103,6 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 		}
 	}
 	
-	public void compressPdf(int pageNo)
-	{
-		Document document = null;
-		try
-		{	
-			document = new Document();			
-			PdfSmartCopy copy = new PdfSmartCopy(document, new FileOutputStream(opDir + File.separator + pageNo + "_temp.pdf"));
-			document.open();
-			copy.setFullCompression();
-			
-			PdfReader reader = new PdfReader(opDir + File.separator + pageNo + ".pdf");
-			int n = reader.getNumberOfPages();
-			for (int i = 0; i < n;) 
-			{
-				copy.addPage(copy.getImportedPage(reader, ++i));
-			}
-			copy.freeReader(reader);
-			reader.close();
-			copy.flush();	
-			
-		}
-		catch(Exception e)
-		{
-			logger.error("Error in compressing file ", e);
-		}
-		finally
-		{
-			if(document != null)
-			{
-				document.close();
-			}			
-		}
-		
-		
-		
-		try 
-		{
-			FileUtils.copyFile(new File(opDir + File.separator + pageNo + "_temp.pdf"), new File(opDir + File.separator + pageNo + ".pdf"));
-			FileUtils.deleteQuietly(new File(opDir + File.separator + pageNo + "_temp.pdf"));
-		} catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
 	
 	public void addPDFConcatenateTaskListener(PDFConcatenateTaskListener listener)
 	{
@@ -167,22 +111,18 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	
 	private void fireListenersTaskCompleted(boolean status)
 	{
-		logger.debug("Enter fireListenersTaskCompleted");
 		for(int i = 0; i < listeners.size(); i++)
 		{
 			listeners.get(i).concateCompleted(status);
 		}
-		logger.debug("Done fireListenersTaskCompleted");
 	}
 	
 	private void fireListenersTaskProgress(int pageProcessed)
 	{
-		logger.debug("Enter fireListenersTaskProgress");
 		for(int i = 0; i < listeners.size(); i++)
 		{
 			listeners.get(i).concateProgress(pageProcessed);
 		}
-		logger.debug("Done fireListenersTaskProgress");
 	}
 
 	public void concateCompleted(boolean status) {
@@ -191,7 +131,6 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	}
 
 	public void concateProgress(int pageProcessedSoFar) {
-		logger.debug("Callback received : concateProgress");		
 		logger.info("Concatenated " + pageProcessedSoFar + " pages so far.");
 	}
 }

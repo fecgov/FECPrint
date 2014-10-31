@@ -3,11 +3,17 @@
  */
 package gov.fec.efo.fecprint.pdf;
 
+import gov.fec.efo.fecprint.data.BaseRecordType;
+import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.layout.Page;
+import gov.fec.efo.fecprint.layout.PageManager;
+import gov.fec.efo.fecprint.utility.AppProperties;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -19,13 +25,9 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfSmartCopy;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.RandomAccessFileOrArray;
-import gov.fec.efo.fecprint.data.BaseRecordType;
-import gov.fec.efo.fecprint.data.RecordType;
-import gov.fec.efo.fecprint.layout.Page;
-import gov.fec.efo.fecprint.layout.PageManager;
-import gov.fec.efo.fecprint.utility.AppProperties;
 
 /**
  * @author Milind
@@ -77,8 +79,9 @@ public class PDFStamperRealTime {
 			stamp = new PdfStamper(reader, baos);
 			stamp.setFullCompression();
 			AcroFields form = stamp.getAcroFields();
-			Map data = page.getData();
-			java.util.Iterator<String> it = data.keySet().iterator();
+			Map<String, String> data = page.getData();
+			Iterator<String> it = data.keySet().iterator();
+			
 			while (it.hasNext()) {
 				String fieldName = it.next();
 	
@@ -88,13 +91,15 @@ public class PDFStamperRealTime {
 				}
 				catch(Exception e)
 				{
-					logger.error("Error stamping data on pdf template",e);
+					logger.error("Error stamping data on pdf template: " + e.getMessage(),e);
 				}
 	
 			}
 			stamp.setFormFlattening(true);		
 			stamp.close();
 			reader.close();
+			
+			compressPdf(outputFilePath, pageNo);
 			
 			if(n > 1)
 			{
@@ -132,8 +137,56 @@ public class PDFStamperRealTime {
 			}
 		}
 		
+		
+		
 	}
 
+	private void compressPdf(File outputFilePath, int pageNo)
+	{
+		Document document = null;
+		try
+		{	
+			document = new Document();			
+			PdfSmartCopy copy = new PdfSmartCopy(document, new FileOutputStream(opPdfDir + File.separator + pageNo + "_temp.pdf"));
+			copy.setFullCompression();
+			document.open();
+			
+			PdfReader reader = new PdfReader(opPdfDir + File.separator + pageNo + ".pdf");
+			int n = reader.getNumberOfPages();
+			for (int i = 0; i < n;) 
+			{
+				copy.addPage(copy.getImportedPage(reader, ++i));
+			}
+			copy.freeReader(reader);
+			reader.close();
+			copy.flush();	
+			
+		}
+		catch(Exception e)
+		{
+			logger.error("Error in compressing file: " + e.getMessage(), e);
+		}
+		finally
+		{
+			if(document != null)
+			{
+				document.close();
+			}			
+		}
+		
+		
+		
+		try 
+		{
+			FileUtils.copyFile(new File(opPdfDir + File.separator + pageNo + "_temp.pdf"), outputFilePath);
+			FileUtils.deleteQuietly(new File(opPdfDir + File.separator + pageNo + "_temp.pdf"));
+		} catch (IOException e) 
+		{
+			logger.error(e.getMessage(), e);
+		}
+		
+		
+	}
 	private String getTemplate(String formType, String pageType) throws IOException {
 		
 		String key = formType + File.separator + pageType;

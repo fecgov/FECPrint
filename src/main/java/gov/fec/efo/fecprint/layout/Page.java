@@ -1,8 +1,14 @@
 package gov.fec.efo.fecprint.layout;
 
+import gov.fec.efo.fecprint.data.Record;
+import gov.fec.efo.fecprint.paginate.PaginationProperties;
+import gov.fec.efo.fecprint.utility.Constants;
+import gov.fec.efo.fecprint.utility.Utility;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -11,11 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import gov.fec.efo.fecprint.data.Record;
-import gov.fec.efo.fecprint.paginate.PaginationProperties;
-import gov.fec.efo.fecprint.utility.Constants;
-import gov.fec.efo.fecprint.utility.Utility;
 
 public class Page {
 	
@@ -57,12 +58,12 @@ public class Page {
 		recs[r.getIndexOnPage()] = r;
 	}
 	
-	public Map getData()
+	public Map<String, String> getData()
 	{
-		Map m = new HashMap();
-		List lJavaScripts = null;
+		Map<String, String> m = new HashMap<String, String>();
+		List<String> lJavaScripts = null;
 		
-		java.util.Iterator<String> it = fieldMapping.keySet().iterator();
+		Iterator<String> it = fieldMapping.keySet().iterator();
 		while(it.hasNext())
 		{
 			String fieldName = it.next();
@@ -125,7 +126,7 @@ public class Page {
 			{
 				if(lJavaScripts == null)
 				{
-					lJavaScripts = new ArrayList();
+					lJavaScripts = new ArrayList<String>();
 				}
 				lJavaScripts.add(fieldName);
 			}

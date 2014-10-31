@@ -26,10 +26,11 @@ public class PDFStamperTask
 		threadsScheduled = new Vector<PDFStamperThread>();
 		threadsRunning = new Vector<PDFStamperThread>();		
 	}
-	public List startTask(String opDir, PageManager pgMgr,BaseRecordType coverPageType,int startPage,int endPage, List<PDFStamperTaskListener> listener) {
+	public List<IntRange> startTask(String opDir, PageManager pgMgr,BaseRecordType coverPageType,int startPage,int endPage, List<PDFStamperTaskListener> listener) {
 
 		
-		ArrayList<IntRange> rangeList = new ArrayList<IntRange>();  
+		List<IntRange> rangeList = new ArrayList<IntRange>();
+		
 		if(endPage == -1)
 		{
 			startPage = 1;
@@ -53,16 +54,24 @@ public class PDFStamperTask
 		}
 		else
 		{
-			logger.debug("Task bigger then chunk size");
+
 			int totalPageToPrint = endPage - startPage + 1;
-			int batchSize = totalPageToPrint/AppProperties.getMaxPdfThreadsAllowed();
-			logger.debug("batchSize = " + batchSize);
-			int residual = totalPageToPrint%AppProperties.getMaxPdfThreadsAllowed();
-			for(int i = 0; i  <= AppProperties.getMaxPdfThreadsAllowed() && startPage < endPage; i++)
+			logger.debug("Threading PDF processing. Total pages: " + totalPageToPrint);
+
+			int batchSize = (totalPageToPrint + AppProperties.getMaxPdfThreadsAllowed() - 1) / AppProperties.getMaxPdfThreadsAllowed();
+			logger.debug("totalPageToPrint=" + totalPageToPrint + ", batchSize=" + batchSize);
+
+			for(int i = 0; i  < AppProperties.getMaxPdfThreadsAllowed() ; i++)
 			{
-				PDFStamperThread r = new PDFStamperThread(opDir, pgMgr,coverPageType,startPage ,startPage + batchSize + residual,this);
-				rangeList.add(new IntRange(startPage,startPage + batchSize + residual));
-				logger.debug("Task start page = " + startPage );
+
+				int threadEndPage = startPage + batchSize - 1;
+
+				if (threadEndPage > endPage) threadEndPage = endPage;
+
+				logger.debug("Creating thread: " + startPage + " to " + threadEndPage);
+				PDFStamperThread r = new PDFStamperThread(opDir, pgMgr, coverPageType, startPage, threadEndPage, this);
+				rangeList.add(new IntRange(startPage, threadEndPage));
+
 				if(listener != null && listener.size() > 0)
 				{
 					for(int t = 0 ; t < listener.size(); t++)
@@ -71,8 +80,7 @@ public class PDFStamperTask
 					}
 				}
 				threadsScheduled.add(r);
-				startPage = startPage + batchSize + residual + 1;
-				residual =0;
+				startPage = threadEndPage + 1;
 			}
 		}
 		
@@ -182,7 +190,6 @@ public class PDFStamperTask
 			boolean success = false;
 			try
 			{
-				int totalPagesInThisTask = end - start + 1;
 				for(int pgNo = start, pagesProcessed = 0; pgNo <= end; pgNo++)
 				{
 					generatePage(pgNo);
@@ -191,7 +198,7 @@ public class PDFStamperTask
 					{
 						Utility.freeUpMemory("In PDFStamperThread. Memory cleanup after processing 100000 pages");					
 					}
-					if(pagesProcessed%100 == 0)
+					if(pagesProcessed%1000 == 0)
 					{
 						fireListenersTaskProgress(pagesProcessed);					
 					}
@@ -226,22 +233,18 @@ public class PDFStamperTask
 		
 		private void fireListenersTaskCompleted(boolean status, IntRange pageRange)
 		{
-			logger.debug("Start fireListenersTaskCompleted");
 			for(int i = 0; i < listeners.size(); i++)
 			{
 				listeners.get(i).stamperTaskCompleted(status, pageRange);
 			}
-			logger.debug("Done fireListenersTaskCompleted");
 		}
 		
 		private void fireListenersTaskProgress(int pageProcessed)
 		{
-			logger.debug("Start fireListenersTaskProgress");
 			for(int i = 0; i < listeners.size(); i++)
 			{
 				listeners.get(i).stamperTaskProgress(pageProcessed);
 			}
-			logger.debug("Done fireListenersTaskProgress");
 		}
 
 	}
