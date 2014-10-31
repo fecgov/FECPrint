@@ -157,7 +157,7 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 	public void stamperTaskProgress(int pageProcessedSoFar) {
 		
 		logger.debug("Callback received : stamperTaskProgress");
-		pagesProcessed += 100;
+		pagesProcessed += 1000;
 		if(dlg != null)
 		{
 			logger.debug("Updating progress dialog");
@@ -227,8 +227,6 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 	}
 
 	public void concateProgress(int pageProcessedSoFar) {
-		
-		logger.debug("Callback received : concateProgress");
 		
 		logger.info("Concatenated " + pageProcessedSoFar + " pages so far.");	
 		if(dlg != null)
