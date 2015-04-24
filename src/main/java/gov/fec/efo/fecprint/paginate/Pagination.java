@@ -1,35 +1,31 @@
 package gov.fec.efo.fecprint.paginate;
 
-import gov.fec.efo.fecprint.data.BaseRecordType;
-import gov.fec.efo.fecprint.data.DataBuilder;
-import gov.fec.efo.fecprint.data.Record;
-import gov.fec.efo.fecprint.data.RecordType;
-import gov.fec.efo.fecprint.utility.AppProperties;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.channels.FileLock;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-import javax.xml.ws.http.HTTPException;
-
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import gov.fec.efo.fecprint.data.BaseRecordType;
+import gov.fec.efo.fecprint.data.DataBuilder;
+import gov.fec.efo.fecprint.data.Record;
+import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.utility.AppProperties;
 
 public class Pagination {
 
@@ -207,12 +203,11 @@ public class Pagination {
 		//System.out.println("Pagination");
 
 		String fileName = null;
-		//String imgnofile = null;
+		String imgnofile = null;
 		String outfile = null;
-		String imageType = null;
 		PrintWriter outimgno = null;
-		//RandomAccessFile startImgNoFile = null;
-		//FileLock fLock = null;
+		RandomAccessFile startImgNoFile = null;
+		FileLock fLock = null;
 		
 		long startImagingAt = 1;
 		int returnValue = 0;
@@ -238,9 +233,9 @@ public class Pagination {
 				// Get all the arguments passed to the program
 				for (int i = 0; i < args.length - 1; i++) 
 				{
-					if (args[i].startsWith("imagetype=")) 
+					if (args[i].startsWith("imgnofile=")) 
 					{
-						imageType = args[i].substring(args[i].indexOf("=") + 1);
+						imgnofile = args[i].substring(args[i].indexOf("=") + 1);
 					} 
 					else if (args[i].startsWith("outfile=")) {
 						outfile = args[i].substring(args[i].indexOf("=") + 1);
@@ -268,12 +263,12 @@ public class Pagination {
 					usageInfo();
 				}
 				
-				//File imagenoFile = new File(imgnofile);
-				/*if (imagenoFile.exists() == false) 
+				File imagenoFile = new File(imgnofile);
+				if (imagenoFile.exists() == false) 
 				{
 					//System.out.println("File having starting image number not found : " + imagenoFile.getAbsolutePath());
 					usageInfo();
-				}*/				
+				}				
 	
 				/*System.out.println("Processing file " + inputFile.getAbsolutePath());
 				System.out.println("Lockfile used " + imagenoFile.getAbsolutePath());
@@ -281,18 +276,17 @@ public class Pagination {
 				System.out.println("Started at " + new Date());*/			
 			
 				DataBuilder dataBuilder = new DataBuilder(inputFile.getAbsolutePath());
-				startImagingAt = getStartImageNumber(dataBuilder, imageType);
 				int tot = dataBuilder.getTotalLines();
 				long imagenumbers[] = new long[tot];
 				Pagination.getAllImageNumbers(dataBuilder.getRecordBuckets(),
 						imagenumbers);
 				
-				//startImgNoFile = new RandomAccessFile(imagenoFile,"rws");
-				//fLock = startImgNoFile.getChannel().lock();
-				/*if(fLock != null)
+				startImgNoFile = new RandomAccessFile(imagenoFile,"rws");
+				fLock = startImgNoFile.getChannel().lock();
+				if(fLock != null)
 				{
 					String line = startImgNoFile.readLine();
-					if(line != null && StringUtils.isBlank(line) == false && line.trim().length() == 18)
+					if(line != null && StringUtils.isBlank(line) == false && line.trim().length() == 11)
 					{
 						startImagingAt = Long.parseLong(line.trim());
 					}
@@ -320,22 +314,7 @@ public class Pagination {
 						}
 					}
 					outimgno.flush();
-				}*/
-				outimgno = new PrintWriter(outputFile);
-				long ending = startImagingAt + dataBuilder.getTotalPages() - 1;
-				outimgno.println("" + startImagingAt + "," + ending + "," + tot + "," + dataBuilder.getTotalPages());
-				for (int z = 1; z < tot; z++) 
-				{
-					if (imagenumbers[z] != 0) 
-					{
-						outimgno.println(imagenumbers[z] - 1 + startImagingAt);
-					} 
-					else 
-					{
-						outimgno.println();
-					}
 				}
-				outimgno.flush();
 			}
 		}
 		catch (Exception e) 
@@ -345,122 +324,37 @@ public class Pagination {
 		} 
 		finally 
 		{
-			//System.out.println("Ended at " + new Date());
-			if (outimgno != null) 
+			try
 			{
-				outimgno.close();
+				//System.out.println("Ended at " + new Date());
+				if (outimgno != null) 
+				{
+					outimgno.close();
+				}
+				if(fLock != null && fLock.isValid())
+				{
+					fLock.release();
+				}
+				if(startImgNoFile != null)
+				{
+					startImgNoFile.close();			 
+				}				
 			}
-			/*if(fLock != null && fLock.isValid())
+			catch (IOException e) 
 			{
-				fLock.release();
+				e.printStackTrace();
+				returnValue = 1;
 			}
-			if(startImgNoFile != null)
-			{
-				startImgNoFile.close();			 
-			}*/
 			
 		}
 		System.exit(returnValue);
 		
 	}
-	
-	private static long getStartImageNumber(DataBuilder dataBuilder, String imageType) {
-		BaseRecordType formType = dataBuilder.getFormType();
-		List<String> formData = dataBuilder.getCoverPage().getData();
-		long startingImageNumber = 0;
-		//Code to make a webservice HTTP request
-		//String imageType = "EFILING";
-		String comId = "";
-		String reportType = "";
-		String covStartDate = "";
-		String covEndDate = "";
-		String wsURL = AppProperties.getFECServicesImageNumberURL();
-		try {
-			comId = formData.get(1);
-			switch(formType)
-			{
-				case F1:
-					break;
-				case F24:
-					reportType = formData.get(2);
-					break;
-				case F3:
-					reportType = formData.get(11);
-					covStartDate = formData.get(15);
-					covEndDate = formData.get(16);		
-					break;
-				case F3X:
-					reportType = formData.get(9);
-					covStartDate = formData.get(13);
-					covEndDate = formData.get(14);
-					break;
-				case F3P:
-					comId = formData.get(1);
-					reportType = formData.get(11);
-					covStartDate = formData.get(15);
-					covEndDate = formData.get(16);
-					break;
-				case F4:
-					reportType = formData.get(10);
-					covStartDate = formData.get(11);
-					covEndDate = formData.get(12);
-					break;
-				case F6:
-					break;
-				case F7:
-					reportType = formData.get(9);
-					covStartDate = formData.get(12);
-					covEndDate = formData.get(13);
-					break;
-				case F9:
-					covStartDate = formData.get(17);
-					covEndDate = formData.get(18);
-					break;
-				case F99:
-					break;
-				default:
-					break;
-			}
-			
-			URL url = new URL(wsURL);
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-			
-			//add request header
-			connection.setRequestMethod("POST");
-
-			String urlParameters = "imageType="+imageType+"&comId="+comId+"&formType="+formType+"&reportType="+reportType+"&covStartDate="+covStartDate+"&covEndDate="+covEndDate+"&noOfPages="+dataBuilder.getTotalPages();
-			
-			// Send post request
-			connection.setDoOutput(true);
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(urlParameters);
-			wr.flush();
-			wr.close();
-			
-			//check response code 
-			int responseCode = connection.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                	startingImageNumber = Long.parseLong(line.trim());
-                }
-            }
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return startingImageNumber;
-	}
 
 	private static void usageInfo() 
 	{
 		System.out
-				.println("java -Xms512m -Xmx1024m -classpath <FECPrint jar path> gov.fec.efo.fecprint.paginate.Pagination imagetype=<image type> outfile=<image number out file pathname> <datafile pathname>");
+				.println("java -Xms512m -Xmx1024m -classpath <FECPrint jar path> gov.fec.efo.fecprint.paginate.Pagination imgnofile=<lockfile pathname> outfile=<image number out file pathname> <datafile pathname>");
 		System.exit(1);
 	}
 

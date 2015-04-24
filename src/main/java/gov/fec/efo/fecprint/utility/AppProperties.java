@@ -30,7 +30,6 @@ public class AppProperties {
 	public static final String OUTPUT_CHUNK_SIZE = "OUTPUT_CHUNK_SIZE";
 	public static final String MAX_PDF_THREADS = "MAX_PDF_THREADS"; 
 	public static final String DELETE_PAGE_FILES_ON_CONCATE = "DELETE_PAGE_FILES_ON_CONCATE";
-	public static final String FEC_SERVICES_IMAGE_NUMBER_URL = "FEC_SERVICES_IMAGE_NUMBER_URL";
 	
 	private static Properties prop = null; 
 	private static Log logger;
@@ -128,11 +127,6 @@ public class AppProperties {
 	public static int getMaxPdfThreadsAllowed()
 	{
 		return prop.getProperty(MAX_PDF_THREADS) != null ? Integer.parseInt(prop.getProperty(MAX_PDF_THREADS)) : 3;
-	}
-	
-	public static String getFECServicesImageNumberURL()
-	{
-		return prop.getProperty(FEC_SERVICES_IMAGE_NUMBER_URL) != null ? prop.getProperty(FEC_SERVICES_IMAGE_NUMBER_URL) : "http://172.16.2.73:8080/fecservices/getImageNumber";
 	}
 	
 	public static boolean deletePagePdfFilesAfterConcatination()
