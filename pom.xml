@@ -7,6 +7,9 @@
   <name>FEC Electronic Filing PDF Imaging</name>
   <url>http://www.fec.gov</url>
   <version>8.1.0.1-SNAPSHOT</version>
+  <scm>
+    <connection>scm:svn:https://fec-vcs-01.concentus.net/repos/FECPrint/trunk/</connection>
+  </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
