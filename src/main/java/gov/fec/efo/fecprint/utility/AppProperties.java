@@ -132,7 +132,8 @@ public class AppProperties {
 	
 	public static String getFECServicesImageNumberURL()
 	{
-		return prop.getProperty(FEC_SERVICES_IMAGE_NUMBER_URL) != null ? prop.getProperty(FEC_SERVICES_IMAGE_NUMBER_URL) : "http://172.16.2.73:8080/fecservices/getImageNumber";
+		return System.getenv(FEC_SERVICES_IMAGE_NUMBER_URL) != null ? System.getenv(FEC_SERVICES_IMAGE_NUMBER_URL) : "http://172.16.2.73:8080/fecservices/getImageNumber";
+		
 	}
 	
 	public static boolean deletePagePdfFilesAfterConcatination()
