@@ -426,7 +426,7 @@ public class Pagination {
 					break;
 			}
 			
-			//disable ssl
+			//disable ssl as there are no valid certs available on test server
 			disableSSL();
 	        
 			
