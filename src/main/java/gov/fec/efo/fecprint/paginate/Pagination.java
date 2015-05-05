@@ -4,6 +4,7 @@ import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.data.DataBuilder;
 import gov.fec.efo.fecprint.data.Record;
 import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.paginate.PaginationProperties;
 import gov.fec.efo.fecprint.utility.AppProperties;
 
 import java.io.BufferedReader;
@@ -12,15 +13,25 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.security.cert.X509Certificate;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -415,9 +426,14 @@ public class Pagination {
 					break;
 			}
 			
-			URL url = new URL(wsURL);
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+			//disable ssl as there are no valid certs available on test server
+			disableSSL();
+	        
 			
+			URL url = new URL(wsURL);
+			System.out.println("Web Service URL: "+url);
+			HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+			System.out.println("Connection object: "+connection);
 			//add request header
 			connection.setRequestMethod("POST");
 
@@ -432,7 +448,7 @@ public class Pagination {
 			
 			//check response code 
 			int responseCode = connection.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK) {
+			if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line;
                 BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 while ((line=br.readLine()) != null) {
@@ -448,6 +464,52 @@ public class Pagination {
 			e.printStackTrace();
 		}
 		return startingImageNumber;
+	}
+
+	private static void disableSSL() {
+		// Create a trust manager that does not validate certificate chains
+		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+		        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+		            return null;
+		        }
+		        @Override
+				public void checkClientTrusted(
+						java.security.cert.X509Certificate[] chain,
+						String authType) throws CertificateException {
+					// TODO Auto-generated method stub
+					
+				}
+				@Override
+				public void checkServerTrusted(
+						java.security.cert.X509Certificate[] chain,
+						String authType) throws CertificateException {
+					// TODO Auto-generated method stub
+					
+				}
+		    }
+		};
+ 
+		// Install the all-trusting trust manager
+		SSLContext sc;
+		try {
+			sc = SSLContext.getInstance("SSL");
+		
+		    sc.init(null, trustAllCerts, new java.security.SecureRandom());
+		    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+ 
+		    // Create all-trusting host name verifier
+		    HostnameVerifier allHostsValid = new HostnameVerifier() {
+		        public boolean verify(String hostname, SSLSession session) {
+		            return true;
+		        }
+		    };
+		    
+		    // Install the all-trusting host verifier
+		    HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		} catch (NoSuchAlgorithmException | KeyManagementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static void usageInfo() 
