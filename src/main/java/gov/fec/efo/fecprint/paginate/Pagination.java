@@ -431,9 +431,7 @@ public class Pagination {
 	        
 			
 			URL url = new URL(wsURL);
-			System.out.println("Web Service URL: "+url);
 			HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-			System.out.println("Connection object: "+connection);
 			//add request header
 			connection.setRequestMethod("POST");
 
