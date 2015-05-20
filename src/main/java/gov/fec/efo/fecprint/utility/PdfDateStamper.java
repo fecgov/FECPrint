@@ -35,7 +35,7 @@ public class PdfDateStamper {
 			} else if (args[l].equals("-i")) {
 				doStampImageNo = true;
 				File fl = new File(inputFileName);
-				lImageNo = Long.parseLong(fl.getName().substring(0, 11));
+				lImageNo = Long.parseLong(fl.getName().substring(0, 18));
 			} else if (args[l].equals("-o")) {
 				l++;
 				if (l < args.length) {
