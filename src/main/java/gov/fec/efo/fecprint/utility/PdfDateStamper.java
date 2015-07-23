@@ -64,7 +64,7 @@ public class PdfDateStamper {
 			}
 
 			if (doStampImageNo) {
-				cb.showTextAligned(1, "Image# " + (lImageNo + i - 1L), 55.0F, 775.0F, 0.0F);
+				cb.showTextAligned(1, "Image# " + (lImageNo + i - 1L), 105.0F, 775.0F, 0.0F);
 			}
 			cb.endText();
 		}
