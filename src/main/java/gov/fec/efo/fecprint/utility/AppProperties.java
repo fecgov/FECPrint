@@ -130,12 +130,6 @@ public class AppProperties {
 		return prop.getProperty(MAX_PDF_THREADS) != null ? Integer.parseInt(prop.getProperty(MAX_PDF_THREADS)) : 3;
 	}
 	
-	public static String getFECServicesImageNumberURL()
-	{
-		return System.getenv(FEC_SERVICES_IMAGE_NUMBER_URL) != null ? System.getenv(FEC_SERVICES_IMAGE_NUMBER_URL) : "http://172.16.2.73:8080/fecservices/getImageNumber";
-		
-	}
-	
 	public static boolean deletePagePdfFilesAfterConcatination()
 	{
 		return prop.getProperty(DELETE_PAGE_FILES_ON_CONCATE) != null ? BooleanUtils.toBoolean(prop.getProperty(DELETE_PAGE_FILES_ON_CONCATE)) : true;
