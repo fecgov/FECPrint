@@ -4,23 +4,26 @@ import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.data.DataBuilder;
 import gov.fec.efo.fecprint.data.Record;
 import gov.fec.efo.fecprint.data.RecordType;
-import gov.fec.efo.fecprint.paginate.PaginationProperties;
-import gov.fec.efo.fecprint.utility.AppProperties;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -31,7 +34,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.security.cert.X509Certificate;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -286,6 +288,9 @@ public class Pagination {
 			
 				DataBuilder dataBuilder = new DataBuilder(inputFile.getAbsolutePath());
 				startImagingAt = getStartImageNumber(dataBuilder, imageType);
+				if(Long.toString(startImagingAt).length() != 18 && Long.toString(startImagingAt).length() != 11) {
+					throw new Exception("Image Number is neither 18 digits or 11 digits");
+				}
 				int tot = dataBuilder.getTotalLines();
 				long imagenumbers[] = new long[tot];
 				Pagination.getAllImageNumbers(dataBuilder.getRecordBuckets(),
@@ -378,7 +383,12 @@ public class Pagination {
 		String reportType = "";
 		String covStartDate = "";
 		String covEndDate = "";
-		String wsURL = AppProperties.getFECServicesImageNumberURL();
+		
+		String fecServicesHost = "";
+		String fecServicesPort = "";
+		String fecServicesProtocol = "";
+		HttpURLConnection connection = null;
+		//String wsURL = AppProperties.getFECServicesImageNumberURL();
 		try {
 			comId = formData.get(1);
 			switch(formType)
@@ -428,10 +438,45 @@ public class Pagination {
 			
 			//disable ssl as there are no valid certs available on test server
 			disableSSL();
-	        
 			
-			URL url = new URL(wsURL);
-			HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+			Properties fecServicesProperties =  new Properties();
+			FileInputStream fecServicesInstream = null;
+			File fecServicesPropertiesFile = new File("resources/app.properties");
+			fecServicesInstream = new FileInputStream(fecServicesPropertiesFile);
+			
+			fecServicesProperties.load(fecServicesInstream);
+			Enumeration<Object> fecServicesEnum = fecServicesProperties.keys(); 
+			while(fecServicesEnum.hasMoreElements())
+			{
+				Object okey = fecServicesEnum.nextElement();
+				if(okey.equals("FEC_SERVICES_HOST")) {
+					fecServicesHost = (String)(fecServicesProperties.get(okey));
+				} else if(okey.equals("FEC_SERVICES_PORT")) {
+					fecServicesPort = (String)(fecServicesProperties.get(okey));
+				} else if(okey.equals("FEC_SERVICES_PROTOCOL")) {
+					fecServicesProtocol = (String)(fecServicesProperties.get(okey));
+				}
+				//String parsedVal = parseVariableAndPutValue((String)(fecServicesProperties.get(okey)));
+				//prop.put(okey, parsedVal);
+			}
+			
+			
+			StringBuffer imageNumberURL = new StringBuffer();
+			imageNumberURL.append(fecServicesProtocol).append("://").append(fecServicesHost);
+			if(fecServicesPort != null && !fecServicesPort.equals("")) {
+				imageNumberURL.append(":").append(fecServicesPort);
+			}
+			imageNumberURL.append("/fecservices/getImageNumber");
+			
+			URL url = new URL(imageNumberURL.toString());
+			if(fecServicesProtocol != null && fecServicesProtocol.length() > 0) {
+				if(fecServicesProtocol.equals("https")) {
+					connection = (HttpsURLConnection)url.openConnection();
+				} else {
+					connection = (HttpURLConnection)url.openConnection();
+				}
+			}
+			
 			//add request header
 			connection.setRequestMethod("POST");
 
