@@ -30,7 +30,9 @@ public class AppProperties {
 	public static final String OUTPUT_CHUNK_SIZE = "OUTPUT_CHUNK_SIZE";
 	public static final String MAX_PDF_THREADS = "MAX_PDF_THREADS"; 
 	public static final String DELETE_PAGE_FILES_ON_CONCATE = "DELETE_PAGE_FILES_ON_CONCATE";
-	public static final String FEC_SERVICES_IMAGE_NUMBER_URL = "FEC_SERVICES_IMAGE_NUMBER_URL";
+	public static final String FEC_SERVICES_HOST = "FEC_SERVICES_HOST";
+	public static final String FEC_SERVICES_PORT = "FEC_SERVICES_PORT";
+	public static final String FEC_SERVICES_PROTOCOL = "FEC_SERVICES_PROTOCOL";
 	
 	private static Properties prop = null; 
 	private static Log logger;
@@ -128,6 +130,21 @@ public class AppProperties {
 	public static int getMaxPdfThreadsAllowed()
 	{
 		return prop.getProperty(MAX_PDF_THREADS) != null ? Integer.parseInt(prop.getProperty(MAX_PDF_THREADS)) : 3;
+	}
+	
+	public static String getFECServicesProtocol()
+	{
+		return prop.getProperty(FEC_SERVICES_PROTOCOL) != null ? prop.getProperty(FEC_SERVICES_PROTOCOL) : "https";
+	}
+	
+	public static String getFECServicesHost()
+	{
+		return prop.getProperty(FEC_SERVICES_HOST) != null ? prop.getProperty(FEC_SERVICES_HOST) : "webforms.fec.gov";
+	}
+	
+	public static String getFECServicesPort()
+	{
+		return prop.getProperty(FEC_SERVICES_PORT) != null ? prop.getProperty(FEC_SERVICES_PORT) : "";
 	}
 	
 	public static boolean deletePagePdfFilesAfterConcatination()

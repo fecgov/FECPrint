@@ -4,26 +4,23 @@ import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.data.DataBuilder;
 import gov.fec.efo.fecprint.data.Record;
 import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.utility.AppProperties;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -384,9 +381,6 @@ public class Pagination {
 		String covStartDate = "";
 		String covEndDate = "";
 		
-		String fecServicesHost = "";
-		String fecServicesPort = "";
-		String fecServicesProtocol = "";
 		HttpURLConnection connection = null;
 		//String wsURL = AppProperties.getFECServicesImageNumberURL();
 		try {
@@ -439,6 +433,7 @@ public class Pagination {
 			//disable ssl as there are no valid certs available on test server
 			disableSSL();
 			
+			/*
 			Properties fecServicesProperties =  new Properties();
 			FileInputStream fecServicesInstream = null;
 			File fecServicesPropertiesFile = new File("resources/app.properties");
@@ -459,7 +454,10 @@ public class Pagination {
 				//String parsedVal = parseVariableAndPutValue((String)(fecServicesProperties.get(okey)));
 				//prop.put(okey, parsedVal);
 			}
-			
+			*/
+			String fecServicesHost = AppProperties.getFECServicesHost();
+			String fecServicesPort = AppProperties.getFECServicesPort();
+			String fecServicesProtocol = AppProperties.getFECServicesProtocol();
 			
 			StringBuffer imageNumberURL = new StringBuffer();
 			imageNumberURL.append(fecServicesProtocol).append("://").append(fecServicesHost);
