@@ -248,17 +248,62 @@ public class DataBuilder {
 		if(recordBuckets.get(RecordType.H3) != null)
 		{
 			Vector<Record> v = recordBuckets.get(RecordType.H3);
+			Vector<Record> vParent = new Vector<Record>();
+			Vector<Record> vChild = new Vector<Record>();
+			
 			for(int i = 0; i < v.size(); i++)
 			{
 				Record r = v.get(i);
 				if(r.getData().get(RecordConstants.H3_EVENT_TYPE_POS).equals("AD"))
 				{
-					String s = r.getData().get( RecordConstants.TRAN_ID_POS);
-				
-					Vector<Record> childrens = extractMatchingH3ChildRecords(recordBuckets.get(RecordType.H3), s);
-					r.addChildRecords(RecordType.H3, childrens);
+					vParent.add(r);
+				} else {
+					vChild.add(r);
 				}
 			}
+			
+			for(int i = 0; i < vParent.size(); i++) 
+			{
+				Record r = vParent.get(i);
+				String backRefId = r.getData().get( RecordConstants.TRAN_ID_POS);
+				Vector<Record> vExtracted = new Vector<Record>();
+				for(int cnt = 0; cnt < vChild.size(); cnt++)
+				{
+					if(vChild.get(cnt).getData().get(RecordConstants.BACK_REF_ID_POS).equals(backRefId) && vChild.get(cnt).getData().get(RecordConstants.TRAN_ID_POS).equals(backRefId) == false)
+					{
+						vExtracted.add(vChild.get(cnt));
+						//vChild.remove(cnt);
+						//cnt--;
+					}
+				}
+				Vector<Record> childrens = vExtracted;
+				r.addChildRecords(RecordType.H3, childrens);
+			}
+			
+			v.removeAllElements();
+			v.addAll(vParent);
+			
+			/*
+			for(int i = 0; i < v.size(); i++)
+			{
+				Record r = v.get(i);
+				if(r.getData().get(RecordConstants.H3_EVENT_TYPE_POS).equals("AD"))
+				{
+					String backRefId = r.getData().get( RecordConstants.TRAN_ID_POS);
+					Vector<Record> vExtracted = new Vector<Record>();
+					for(int cnt = 0; cnt < v.size(); cnt++)
+					{
+						if(v.get(cnt).getData().get(RecordConstants.BACK_REF_ID_POS).equals(backRefId) && v.get(cnt).getData().get(RecordConstants.TRAN_ID_POS).equals(backRefId) == false)
+						{
+							vExtracted.add(v.get(cnt));
+							v.remove(cnt);
+							cnt--;
+						}
+					}
+					Vector<Record> childrens = vExtracted;
+					r.addChildRecords(RecordType.H3, childrens);
+				}
+			}*/
 		}
 		
 		extractMatchingRecords(RecordType.SC_9, RecordType.SC2_9);
@@ -350,7 +395,8 @@ public class DataBuilder {
 			{
 				if(v.get(i).getData().get(RecordConstants.BACK_REF_ID_POS).equals(backRefId) && v.get(i).getData().get(RecordConstants.TRAN_ID_POS).equals(backRefId) == false)
 				{
-					vExtracted.add(v.remove(i));
+					vExtracted.add(v.get(i));
+					v.remove(i);
 					i--;
 				}
 			}
