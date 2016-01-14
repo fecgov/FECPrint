@@ -389,7 +389,7 @@ public class FECPrintMainWindow extends JFrame implements ActionListener, Change
 					if(e.getActionCommand().equals("About"))
 					{
 						//MessageDialog dlg = new MessageDialog(this,"About FECPrint 8.1","Viewer for FEC Electronic Filing\n\nCopyright \u00a9 2013 Federal Election Commission. All rights reserved.");
-						MessageDialog dlg = new MessageDialog(this,"About FECPrint 8.1","Viewer for FEC Electronic Filing\n\nFor technical support, please contact: ELECTRONIC FILING OFFICE, FEC\nDirect dial: 202-694-1642, Toll free: 1-800-424-9530 x 1642");
+						MessageDialog dlg = new MessageDialog(this,"About FECPrint "+ AppProperties.getVersion(),"Viewer for FEC Electronic Filing\n\nFor technical support, please contact: ELECTRONIC FILING OFFICE, FEC\nDirect dial: 202-694-1642, Toll free: 1-800-424-9530 x 1642");
 						
 						dlg.setVisible(true);	
 					}
