@@ -33,7 +33,6 @@ public class AppProperties {
 	public static final String FEC_SERVICES_HOST = "FEC_SERVICES_HOST";
 	public static final String FEC_SERVICES_PORT = "FEC_SERVICES_PORT";
 	public static final String FEC_SERVICES_PROTOCOL = "FEC_SERVICES_PROTOCOL";
-	public static final String VERSION = "VERSION";
 	
 	private static Properties prop = null; 
 	private static Log logger;
@@ -151,11 +150,6 @@ public class AppProperties {
 	public static boolean deletePagePdfFilesAfterConcatination()
 	{
 		return prop.getProperty(DELETE_PAGE_FILES_ON_CONCATE) != null ? BooleanUtils.toBoolean(prop.getProperty(DELETE_PAGE_FILES_ON_CONCATE)) : true;
-	}
-	
-	public static String getVersion()
-	{
-		return prop.getProperty(VERSION) != null ? prop.getProperty(VERSION) : "8.1";
 	}
 	
 	public static String parseVariableAndPutValue(String initialVal)	
