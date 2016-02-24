@@ -17,7 +17,7 @@
     <repository>
       <id>EFO Nexus 3rd Party</id>
       <name>EFO Nexus 3rd Party</name>
-      <url>http://jenkins-s1-01.efsi-fec.local:8081/nexus/content/repositories/thirdparty</url>
+      <url>http://jenkins.efsi-fec.local:8081/nexus/content/repositories/thirdparty</url>
       <releases>
         <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>
@@ -332,11 +332,11 @@
   <distributionManagement>
     <repository>
       <id>efo-releases</id>
-      <url>http://jenkins-s1-01.efsi-fec.local:8081/nexus/content/repositories/releases/</url>
+      <url>http://jenkins.efsi-fec.local:8081/nexus/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
       <id>efo-snapshots</id>
-      <url>http://jenkins-s1-01.efsi-fec.local:8081/nexus/content/repositories/snapshots/</url>
+      <url>http://jenkins.efsi-fec.local:8081/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
