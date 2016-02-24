@@ -11,6 +11,7 @@
     <connection>scm:svn:https://fec-vcs-01.concentus.net/repos/FECPrint/trunk/</connection>
   </scm>
   <properties>
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <repositories>
