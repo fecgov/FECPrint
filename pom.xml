@@ -12,6 +12,7 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
   </properties>
   <repositories>
     <repository>
@@ -231,7 +232,7 @@
                 </extraArguments>
               </jvmSettings>
             </program>
-           <program>
+            <program>
               <mainClass>gov.fec.efo.fecprint.burst.BurstPDF</mainClass>
               <id>fecprint-burst</id>
               <platforms>
