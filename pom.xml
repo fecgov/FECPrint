@@ -209,8 +209,6 @@
                 <platform>unix</platform>
               </platforms>
               <jvmSettings>
-                <initialMemorySize>128m</initialMemorySize>
-                <maxMemorySize>6144m</maxMemorySize>
                 <extraArguments>
                   <extraArgument>-d64</extraArgument>
                   <extraArgument>-Dconfigfilepathname=conf/fecprint.properties</extraArgument>
