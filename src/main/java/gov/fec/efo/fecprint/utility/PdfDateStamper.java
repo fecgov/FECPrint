@@ -31,7 +31,8 @@ public class PdfDateStamper {
 			} else if (args[l].equals("-t")) {
 				doStampTime = true;
 				File fl = new File(inputFileName);
-				strTimeStamp = fl.getName().substring(16, 18) + "/" + fl.getName().substring(18, 20) + "/" + fl.getName().substring(12, 16) + "  " + fl.getName().substring(20, 22) + " : " + fl.getName().substring(22, 24);
+				//strTimeStamp = fl.getName().substring(16, 18) + "/" + fl.getName().substring(18, 20) + "/" + fl.getName().substring(12, 16) + "  " + fl.getName().substring(20, 22) + " : " + fl.getName().substring(22, 24);
+				strTimeStamp = fl.getName().substring(23, 25) + "/" + fl.getName().substring(25, 27) + "/" + fl.getName().substring(19, 23) + "  " + fl.getName().substring(27, 29) + " : " + fl.getName().substring(29, 31);
 			} else if (args[l].equals("-i")) {
 				doStampImageNo = true;
 				File fl = new File(inputFileName);
