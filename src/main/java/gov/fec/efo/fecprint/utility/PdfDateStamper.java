@@ -51,7 +51,7 @@ public class PdfDateStamper {
 
 		for (int i = 1; i <= n; i++) {
 
-			PdfContentByte cb = stamp.getUnderContent(i);
+			PdfContentByte cb = stamp.getOverContent(i);
 			PdfTemplate template = cb.createTemplate(25.0F, 25.0F);
         
 			cb.addTemplate(template, 7.0F, 757.0F);
