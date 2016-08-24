@@ -31,7 +31,8 @@ public class PdfDateStamper {
 			} else if (args[l].equals("-t")) {
 				doStampTime = true;
 				File fl = new File(inputFileName);
-				strTimeStamp = fl.getName().substring(16, 18) + "/" + fl.getName().substring(18, 20) + "/" + fl.getName().substring(12, 16) + "  " + fl.getName().substring(20, 22) + " : " + fl.getName().substring(22, 24);
+				//strTimeStamp = fl.getName().substring(16, 18) + "/" + fl.getName().substring(18, 20) + "/" + fl.getName().substring(12, 16) + "  " + fl.getName().substring(20, 22) + " : " + fl.getName().substring(22, 24);
+				strTimeStamp = fl.getName().substring(23, 25) + "/" + fl.getName().substring(25, 27) + "/" + fl.getName().substring(19, 23) + "  " + fl.getName().substring(27, 29) + " : " + fl.getName().substring(29, 31);
 			} else if (args[l].equals("-i")) {
 				doStampImageNo = true;
 				File fl = new File(inputFileName);
@@ -51,7 +52,7 @@ public class PdfDateStamper {
 
 		for (int i = 1; i <= n; i++) {
 
-			PdfContentByte cb = stamp.getUnderContent(i);
+			PdfContentByte cb = stamp.getOverContent(i);
 			PdfTemplate template = cb.createTemplate(25.0F, 25.0F);
         
 			cb.addTemplate(template, 7.0F, 757.0F);
