@@ -217,6 +217,7 @@ public class PDFStamperTask
 			catch(Throwable e)
 			{
 				logger.error("Error is stamper thread", e);
+				System.exit(-1);
 			}
 			logger.debug("Done PDFStamperThread");
 		}

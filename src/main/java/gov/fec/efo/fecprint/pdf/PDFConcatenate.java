@@ -92,6 +92,7 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 		catch(Exception e)
 		{
 			logger.error("Error in concatenation thread: " + e.getMessage(), e);
+			System.exit(-1);
 		}
 		finally
 		{
