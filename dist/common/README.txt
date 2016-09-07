@@ -1,16 +1,16 @@
-Doc ID:  Read_Prn.txt						   Date:  02/07/2014
+Doc ID:  Read_Prn.txt						   Date:  09/30/2016
 
 
 			F E D E R A L   E L E C T I O N   C O M M I S S I O N
 			=====================================================
 
-				   Vendor Package Version 8.1.0.1
-				   ==========================
+				   Vendor Package Version 8.1.1.0
+				   ==============================
 
 
 
-				The FECprint JAVA Utility (v8.1.0.1)
-				================================
+				The FECprint JAVA Utility (v8.1.1.0)
+				=====================================
 
 
 
@@ -208,7 +208,7 @@ FECPrint may be called programmatically or run from command line.
 
 USAGE / SYNTAX 
 	
-	java [JAVA OPTIONS] com.nictusa.fecprint.FECPrint [FECPRINT OPTIONS] [[DRIVE:][\path\]inputfilename[.FEC]]
+	java [JAVA OPTIONS] gov.fec.efo.fecprint.FECPrint  [FECPRINT OPTIONS] [[DRIVE:][\path\]inputfilename[.FEC]]
 
 DESCRIPTION
 
@@ -272,35 +272,35 @@ EXAMPLES
 	Call FECPrint with the necessary windows platform specific JAVA classpaths to
 	required libraries:
 		
-			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\itext-2.1.7.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar com.nictusa.fecprint.FECPrint C:\temp\Q1-2015.fec
+			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\iText-2.1.4.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar gov.fec.efo.fecprint.FECPrint  C:\temp\Q1-2015.fec
 
 
 	Call FECPrint to display usage information with the necessary Windows platform specific JAVA classpaths to
 	required libraries:
 		
-			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\itext-2.1.7.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar com.nictusa.fecprint.FECPrint -h
+			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\iText-2.1.4.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar gov.fec.efo.fecprint.FECPrint  -h
 
 	Call FECPrint to display version information with the necessary Windows platform specific JAVA classpaths to
 	required libraries:
 		
-			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\itext-2.1.7.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar com.nictusa.fecprint.FECPrint -v
+			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\iText-2.1.4.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar gov.fec.efo.fecprint.FECPrint  -v
 
 
 	Call FECPrint in non-UI mode with the necessary Windows platform specific
 	JAVA classpaths to required libraries to output all PDFs (single pages and
 	complete) to an 'OUTPUT_DIR' subdirectory based on the filename given:
 
-			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\itext-2.1.7.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar com.nictusa.fecprint.FECPrint silent C:\temp\Q1-2015.fec
+			java -splash:./fecprintsplash.jpg -Xmx1024m -cp .\;.\fecprint.jar;.\lib\commons-io-1.4.jar;.\lib\commons-lang-2.4.jar;.\lib\commons-logging.jar;.\lib\iText-2.1.4.jar;.\lib\jxbrowser-2.9.jar;.\lib\license.jar;.\lib\log4j-1.2.15.jar;.\lib\slf4j-api-1.5.8.jar;.\lib\slf4j-log4j12-1.5.8.jar;.\lib\engine-ie.jar;.\lib\winpack-3.8.2.jar;.\lib\engine-gecko.jar;.\lib\MozillaGlue.jar;.\lib\MozillaInterfaces.jar;.\lib\xulrunner-windows.jar gov.fec.efo.fecprint.FECPrint  silent C:\temp\Q1-2015.fec
 
 	Call FECPrint with the necessary Linux platform specific JAVA classpaths to
 	required libraries:
 
-			java -Xms1024m -Xmx2048m -cp ./:./fecprint.jar:./lib/commons-io-1.4.jar:./lib/commons-lang-2.4.jar:./lib/commons-logging.jar:./lib/itext-2.1.7.jar:./lib/jxbrowser-2.9.jar:./lib/license.jar:./lib/log4j-1.2.15.jar:./lib/slf4j-api-1.5.8.jar:./lib/slf4j-log4j12-1.5.8.jar:./lib/engine-gecko.jar:./lib/MozillaGlue.jar:./lib/MozillaInterfaces.jar:./lib/tuxpack-0.2.jar:./lib/xulrunner-linux64.jar:./lib/xulrunner-linux.jar com.nictusa.fecprint.FECPrint C:\temp\Q1-2015.fec
+			java -Xms1024m -Xmx2048m -cp ./:./fecprint.jar:./lib/commons-io-1.4.jar:./lib/commons-lang-2.4.jar:./lib/commons-logging.jar:./lib/iText-2.1.4.jar:./lib/jxbrowser-2.9.jar:./lib/license.jar:./lib/log4j-1.2.15.jar:./lib/slf4j-api-1.5.8.jar:./lib/slf4j-log4j12-1.5.8.jar:./lib/engine-gecko.jar:./lib/MozillaGlue.jar:./lib/MozillaInterfaces.jar:./lib/tuxpack-0.2.jar:./lib/xulrunner-linux64.jar:./lib/xulrunner-linux.jar gov.fec.efo.fecprint.FECPrint  C:\temp\Q1-2015.fec
 
 	Call FECPrint with the necessary MAC OS X platform JAVA classpaths to required
 	libraries:
 
-			java -Xms1024m -Xmx2048m -cp ./:./fecprint.jar:./lib/commons-io-1.4.jar:./lib/commons-lang-2.4.jar:./lib/commons-logging.jar:./lib/itext-2.1.7.jar:./lib/jxbrowser-2.7.jar:./lib/license.jar:./lib/log4j-1.2.15.jar:./lib/slf4j-api-1.5.8.jar:./lib/slf4j-log4j12-1.5.8.jar:./lib/engine-gecko.jar:./lib/MozillaGlue.jar:./lib/MozillaInterfaces.jar:./lib/engine-webkit.jar:./lib/xulrunner-mac.jar com.nictusa.fecprint.FECPrint C:\temp\Q1-2015.fec
+			java -Xms1024m -Xmx2048m -cp ./:./fecprint.jar:./lib/commons-io-1.4.jar:./lib/commons-lang-2.4.jar:./lib/commons-logging.jar:./lib/iText-2.1.4.jar:./lib/jxbrowser-2.7.jar:./lib/license.jar:./lib/log4j-1.2.15.jar:./lib/slf4j-api-1.5.8.jar:./lib/slf4j-log4j12-1.5.8.jar:./lib/engine-gecko.jar:./lib/MozillaGlue.jar:./lib/MozillaInterfaces.jar:./lib/engine-webkit.jar:./lib/xulrunner-mac.jar gov.fec.efo.fecprint.FECPrint  C:\temp\Q1-2015.fec
 
 ===================================================================================== 
 
