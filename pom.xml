@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <name>FEC Electronic Filing PDF Imaging</name>
   <url>http://www.fec.gov</url>
-  <version>10.0.0-SNAPSHOT</version>
+  <version>11.0.0-SNAPSHOT</version>
   <scm>
     <connection>scm:svn:https://fec-vcs-01.concentus.net/repos/FECPrint/trunk/</connection>
   </scm>
