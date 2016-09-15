@@ -481,19 +481,19 @@ public class Page {
 				StringBuffer nm = new StringBuffer();
 				int startPos = fieldProps.getPos() - 1;
 				ArrayList<String> data = r.getData();
-				if(!StringUtils.isBlank(data.get(startPos))) //Last Name
+				//if(!StringUtils.isBlank(data.get(startPos))) //Last Name
 					nm.append(data.get(startPos)  + ", ");
 				
-				if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
+				//if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
 					nm.append(data.get(startPos + 1)  + ", ");
 				
-				if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
+				//if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
 					nm.append(data.get(startPos + 2)  + ", ");
 				
-				if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
+				//if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
 					nm.append(data.get(startPos + 3) + ", ");
 				
-				if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
+				//if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
 					nm.append(data.get(startPos + 4));
 				
 				return nm.toString();
@@ -506,19 +506,19 @@ public class Page {
 					int startPos = fieldProps.getPos() - 1 + 2 ;
 					ArrayList<String> data = r.getData();
 					
-					if(!StringUtils.isBlank(data.get(startPos))) //Last Name
+					//if(!StringUtils.isBlank(data.get(startPos))) //Last Name
 						nm.append(data.get(startPos)  + ", ");
 					
-					if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
+					//if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
 						nm.append(data.get(startPos + 1)  + ", ");
 					
-					if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
+					//if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
 						nm.append(data.get(startPos + 2)  + ", ");
 					
-					if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
+					//if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
 						nm.append(data.get(startPos + 3)  + ", ");
 					
-					if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
+					//if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
 						nm.append(data.get(startPos + 4));
 				}
 				else
