@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>gov.fec.efo</groupId>
   <artifactId>fecprint</artifactId>
   <packaging>jar</packaging>
   <name>FEC Electronic Filing PDF Imaging</name>
   <url>http://www.fec.gov</url>
-  <version>11.0.0-SNAPSHOT</version>
+  <version>11.0.3</version>
   <scm>
-    <connection>scm:svn:https://fec-vcs-01.concentus.net/repos/FECPrint/trunk/</connection>
+    <connection>scm:svn:https://fec-vcs-01.concentus.net/repos/FECPrint/tags/11.0.3</connection>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
