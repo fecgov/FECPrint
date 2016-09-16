@@ -121,7 +121,7 @@
       <artifactId>xulrunner-linux64</artifactId>
       <version>2.9</version>
       <classifier>linux</classifier>
-    </dependency>
+  </dependency>
     <dependency>
       <groupId>com.teamdev.jxbrowser</groupId>
       <artifactId>xulrunner-mac</artifactId>
