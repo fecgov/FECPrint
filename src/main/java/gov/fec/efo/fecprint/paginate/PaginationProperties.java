@@ -12,7 +12,7 @@ public enum PaginationProperties {
 		F24(BaseRecordType.F24, -1, 1),
 		F3(BaseRecordType.F3, -1, 4),
 		F3S(BaseRecordType.F3S, -1, 4),
-		F3P(BaseRecordType.F3P, -1, 8),
+		F3P(BaseRecordType.F3P, -1, 7),
 		F3PS(BaseRecordType.F3PS, -1, 6),
 		F3P31AL(BaseRecordType.F3P31AL, 7),
 		F3X(BaseRecordType.F3X, -1, 5),
