@@ -481,31 +481,11 @@ public class Page {
 				StringBuffer nm = new StringBuffer();
 				int startPos = fieldProps.getPos() - 1;
 				ArrayList<String> data = r.getData();
-				//if(!StringUtils.isBlank(data.get(startPos))) //Last Name
-					nm.append(data.get(startPos)  + ", ");
-				
-				//if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
-					nm.append(data.get(startPos + 1)  + ", ");
-				
-				//if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
-					nm.append(data.get(startPos + 2)  + ", ");
-				
-				//if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
-					nm.append(data.get(startPos + 3) + ", ");
-				
-				//if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
-					nm.append(data.get(startPos + 4));
-				
-				return nm.toString();
-			}
-			case ENTNAME :
-			{
-				StringBuffer nm = new StringBuffer();
-				if(unformatted != null && (unformatted.equals("IND") || unformatted.equals("CAN")))
-				{
-					int startPos = fieldProps.getPos() - 1 + 2 ;
-					ArrayList<String> data = r.getData();
-					
+				if(StringUtils.isBlank(data.get(startPos)) && StringUtils.isBlank(data.get(startPos + 1)) 
+						&& StringUtils.isBlank(data.get(startPos + 2)) && StringUtils.isBlank(data.get(startPos + 3))
+						&& StringUtils.isBlank(data.get(startPos + 4))) {
+					// Do not show anything
+				} else {
 					//if(!StringUtils.isBlank(data.get(startPos))) //Last Name
 						nm.append(data.get(startPos)  + ", ");
 					
@@ -516,10 +496,41 @@ public class Page {
 						nm.append(data.get(startPos + 2)  + ", ");
 					
 					//if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
-						nm.append(data.get(startPos + 3)  + ", ");
+						nm.append(data.get(startPos + 3) + ", ");
 					
 					//if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
 						nm.append(data.get(startPos + 4));
+				}
+				
+				return nm.toString();
+			}
+			case ENTNAME :
+			{
+				StringBuffer nm = new StringBuffer();
+				if(unformatted != null && (unformatted.equals("IND") || unformatted.equals("CAN")))
+				{
+					int startPos = fieldProps.getPos() - 1 + 2 ;
+					ArrayList<String> data = r.getData();
+					if(StringUtils.isBlank(data.get(startPos)) && StringUtils.isBlank(data.get(startPos + 1)) 
+							&& StringUtils.isBlank(data.get(startPos + 2)) && StringUtils.isBlank(data.get(startPos + 3))
+							&& StringUtils.isBlank(data.get(startPos + 4))) {
+						// Do not show anything
+					} else {
+						//if(!StringUtils.isBlank(data.get(startPos))) //Last Name
+							nm.append(data.get(startPos)  + ", ");
+						
+						//if(!StringUtils.isBlank(data.get(startPos + 1))) //First Name
+							nm.append(data.get(startPos + 1)  + ", ");
+						
+						//if(!StringUtils.isBlank(data.get(startPos + 2))) //Middle Name
+							nm.append(data.get(startPos + 2)  + ", ");
+						
+						//if(!StringUtils.isBlank(data.get(startPos + 3))) //Prefix
+							nm.append(data.get(startPos + 3)  + ", ");
+						
+						//if(!StringUtils.isBlank(data.get(startPos + 4))) // Suffix
+							nm.append(data.get(startPos + 4));
+					}
 				}
 				else
 				{
