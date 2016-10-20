@@ -123,12 +123,22 @@ public class FECPrint {
 							int[][] ranges = { { 1, Integer.MAX_VALUE } };
 							Thread pageGenThread = helper.generatePdf(ranges, opDir, false, true, null);
 							pageGenThread.join();
+							
+							if (!helper.isStatus()) {
+								logger.error("One or more stamper threads failed");
+								System.exit(1);
+							}
 						}
 						Utility.freeUpMemory("Completed seperate page generation.Getting ready for concatenation");
 						PDFConcatenate concatenator = new PDFConcatenate(opDir.getAbsolutePath(), ss, 1, totalPages);
 						concatenator.addPDFConcatenateTaskListener(concatenator);
 						concatenator.start();
 						concatenator.join();
+						
+						if (!concatenator.isStatus()) {
+							logger.error("One or more stamper threads failed");
+							System.exit(1);
+						}
 					}
 					/*
 					 * else //Pagination. No pdf's are generated.Only page nos.

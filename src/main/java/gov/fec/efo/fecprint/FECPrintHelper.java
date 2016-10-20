@@ -1,20 +1,5 @@
 package gov.fec.efo.fecprint;
 
-import gov.fec.efo.fecprint.data.DataBuilder;
-import gov.fec.efo.fecprint.data.Record;
-import gov.fec.efo.fecprint.data.RecordType;
-import gov.fec.efo.fecprint.gui.PDFGenerationProgressDialog;
-import gov.fec.efo.fecprint.layout.Page;
-import gov.fec.efo.fecprint.layout.PageManager;
-import gov.fec.efo.fecprint.pdf.PDFConcatenate;
-import gov.fec.efo.fecprint.pdf.PDFConcatenateTaskListener;
-import gov.fec.efo.fecprint.pdf.PDFStamperRealTime;
-import gov.fec.efo.fecprint.pdf.PDFStamperTask;
-import gov.fec.efo.fecprint.pdf.PDFStamperTaskListener;
-import gov.fec.efo.fecprint.pdf.SegregatedPagesTask;
-import gov.fec.efo.fecprint.pdf.SegregatedPagesTaskListener;
-import gov.fec.efo.fecprint.utility.Utility;
-
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.io.File;
@@ -34,11 +19,25 @@ import org.apache.commons.logging.LogFactory;
 
 import com.itextpdf.text.DocumentException;
 
+import gov.fec.efo.fecprint.data.DataBuilder;
+import gov.fec.efo.fecprint.data.Record;
+import gov.fec.efo.fecprint.data.RecordType;
+import gov.fec.efo.fecprint.gui.PDFGenerationProgressDialog;
+import gov.fec.efo.fecprint.layout.Page;
+import gov.fec.efo.fecprint.layout.PageManager;
+import gov.fec.efo.fecprint.pdf.PDFConcatenate;
+import gov.fec.efo.fecprint.pdf.PDFConcatenateTaskListener;
+import gov.fec.efo.fecprint.pdf.PDFStamperTask;
+import gov.fec.efo.fecprint.pdf.PDFStamperTaskListener;
+import gov.fec.efo.fecprint.pdf.SegregatedPagesTask;
+import gov.fec.efo.fecprint.pdf.SegregatedPagesTaskListener;
+import gov.fec.efo.fecprint.utility.Utility;
+
 public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTaskListener, SegregatedPagesTaskListener{
 	
 	private DataBuilder dataBuilder = null;
 	private PageManager pagesMgr = null;
-	private PDFStamperRealTime pdfGenerator = null;
+	//private PDFStamperRealTime pdfGenerator = null;
 	PDFStamperTask pdfTask;
 	int pagesProcessed = 0;
 	boolean concatenate = false;
@@ -51,6 +50,7 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 	PDFGenerationProgressDialog dlg = null;
 	
 	protected final Log logger = LogFactory.getLog(getClass());
+	private boolean status = true;
 	
 	public FECPrintHelper (File inputFile,long startingImageNumber,String timeStamp) throws Exception
 	{
@@ -149,8 +149,17 @@ public class FECPrintHelper implements PDFStamperTaskListener, PDFConcatenateTas
 		return dataBuilder;
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
 	public void stamperTaskCompleted(boolean status, IntRange pageRange) 
 	{
+		if (!status) {
+			logger.error("FAILED Callback received : stamperTaskCompleted");
+			this.status = status; // any one status failing should set this to false, nothing sets it to true
+			return;
+		}
 		logger.debug("Callback received : stamperTaskCompleted");
 	}
 
