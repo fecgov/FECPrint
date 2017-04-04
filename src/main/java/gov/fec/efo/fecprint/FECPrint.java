@@ -243,7 +243,7 @@ public class FECPrint {
 	private static void versionInfo()
 	{
 		System.out.println();
-		System.out.println("8.1 Build 1");
+		System.out.println("8.2 Build 1");
 		System.out.println();
 		System.exit(1);
 	}

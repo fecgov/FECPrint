@@ -155,7 +155,7 @@ public class AppProperties {
 	
 	public static String getVersion()
 	{
-		return prop.getProperty(VERSION) != null ? prop.getProperty(VERSION) : "8.1";
+		return prop.getProperty(VERSION) != null ? prop.getProperty(VERSION) : "8.2";
 	}
 	
 	public static String parseVariableAndPutValue(String initialVal)	
