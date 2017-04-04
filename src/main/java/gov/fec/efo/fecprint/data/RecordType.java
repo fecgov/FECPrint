@@ -154,8 +154,10 @@ public enum RecordType {
 		H6(BaseRecordType.H6),
 		SI(BaseRecordType.SI),
 		SL(BaseRecordType.SL),
-		F3Z(BaseRecordType.F3Z, -1),
-		F3ZT(BaseRecordType.F3Z, -1),		
+		F3Z1(BaseRecordType.F3Z1),
+		F3Z2(BaseRecordType.F3Z2),
+		F3PZ1(BaseRecordType.F3PZ1),
+		F3PZ2(BaseRecordType.F3PZ2),
 		TEXT(BaseRecordType.TEXT);
 		
 		private final BaseRecordType type;
