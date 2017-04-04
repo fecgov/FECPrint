@@ -24,7 +24,16 @@ public class Form3PDataBuilder {
 			ArrayList<String> summaryFromCover = RecordHelper.getDataSliceIfNotEmpty(2,202,form.getData());			
 			summary.getData().addAll(summaryFromCover);
 		}*/
-		
+		if(recordBuckets.get(RecordType.F3PZ1) != null && recordBuckets.get(RecordType.F3PZ2) != null)
+		{
+			/*if((recordBuckets.get(RecordType.F3Z1).size()% 2) == 0)
+			{
+				Record dummyF3Z1 = new Record(-1, RecordType.F3Z1, RecordHelper.getDataSliceIfNotEmpty(0,6,recordBuckets.get(RecordType.F3Z1).get(0).getData()));
+				recordBuckets.get(RecordType.F3Z1).add(dummyF3Z1);
+			}*/
+			recordBuckets.get(RecordType.F3PZ1).addAll(recordBuckets.get(RecordType.F3PZ2));
+			recordBuckets.remove(RecordType.F3PZ2);
+		}
 		if(recordBuckets.get(RecordType.SC_11) != null)
 		{
 			RecordHelper.mergeSC2RecordWithParent(recordBuckets.get(RecordType.SC_11), RecordType.SC2_11);
