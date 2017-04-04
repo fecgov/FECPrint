@@ -25,15 +25,15 @@ public class Form3DataBuilder {
 			summary.getData().addAll(summaryFromCover);
 		}
 		
-		if(recordBuckets.get(RecordType.F3Z) != null && recordBuckets.get(RecordType.F3ZT) != null)
+		if(recordBuckets.get(RecordType.F3Z1) != null && recordBuckets.get(RecordType.F3Z2) != null)
 		{
-			if((recordBuckets.get(RecordType.F3Z).size()% 2) == 0)
+			/*if((recordBuckets.get(RecordType.F3Z1).size()% 2) == 0)
 			{
-				Record dummyF3Z = new Record(-1, RecordType.F3Z, RecordHelper.getDataSliceIfNotEmpty(0,6,recordBuckets.get(RecordType.F3Z).get(0).getData()));
-				recordBuckets.get(RecordType.F3Z).add(dummyF3Z);
-			}
-			recordBuckets.get(RecordType.F3Z).addAll(recordBuckets.get(RecordType.F3ZT));
-			recordBuckets.remove(RecordType.F3ZT);
+				Record dummyF3Z1 = new Record(-1, RecordType.F3Z1, RecordHelper.getDataSliceIfNotEmpty(0,6,recordBuckets.get(RecordType.F3Z1).get(0).getData()));
+				recordBuckets.get(RecordType.F3Z1).add(dummyF3Z1);
+			}*/
+			recordBuckets.get(RecordType.F3Z1).addAll(recordBuckets.get(RecordType.F3Z2));
+			recordBuckets.remove(RecordType.F3Z2);
 		}
 		
 		if(recordBuckets.get(RecordType.SC_9) != null)
