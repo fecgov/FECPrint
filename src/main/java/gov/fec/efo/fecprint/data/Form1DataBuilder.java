@@ -71,16 +71,6 @@ public class Form1DataBuilder {
 				Record rec = new Record(-1, RecordType.F1S, recData);
 				recData.add("F1S");
 				recData.add(form.getData().get(1));
-				if(additionalJF.size() > 0)
-				{
-					recData.addAll(additionalJF.get(0).getData());
-					rec.addToMergedRecords(additionalJF.remove(0));					
-				}
-				else
-				{
-					RecordHelper.expandArrayTo(4, recData);
-				}
-				
 				if(additionalAff.size() > 0)
 				{
 					recData.addAll(additionalAff.get(0).getData());
@@ -109,6 +99,22 @@ public class Form1DataBuilder {
 				else
 				{
 					RecordHelper.expandArrayTo(36, recData);
+				}
+				
+				if(additionalJF.size() > 0)
+				{
+					//RecordHelper.expandArrayTo(36, recData);
+					for(int i = 0 ; i < 4 && additionalJF.size() > 0 ; i++ )
+					{
+						recData.addAll(additionalJF.get(0).getData());
+						rec.addToMergedRecords(additionalJF.remove(0));	
+					}
+					//recData.addAll(additionalJF.get(0).getData());
+					//rec.addToMergedRecords(additionalJF.remove(0));					
+				}
+				else
+				{
+					RecordHelper.expandArrayTo(44, recData);
 				}
 				
 				rec.setLineno(rec.getMergedRecords().get(0).getLineno());
