@@ -57,7 +57,10 @@ public enum PaginationProperties {
 		SL(BaseRecordType.SL, 1),
 		SASL(BaseRecordType.SASL, 4),
 		SBSL(BaseRecordType.SBSL, 5),
-		F3Z(BaseRecordType.F3Z, 2),
+		F3Z1(BaseRecordType.F3Z1, 1),
+		F3Z2(BaseRecordType.F3Z2, 1),
+		F3PZ1(BaseRecordType.F3PZ1, 1),
+		F3PZ2(BaseRecordType.F3PZ2, 1),
 		TEXT(BaseRecordType.TEXT, 2);
 		
 		private final BaseRecordType type;
