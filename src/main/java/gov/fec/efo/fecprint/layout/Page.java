@@ -352,7 +352,15 @@ public class Page {
 				switch(fieldProps.getType())
 				{
 					case STRING:
-						return unformatted == null ? "" : unformatted;
+						if(unformatted == null) {
+							return "";
+						} else {
+							unformatted = unformatted.trim();
+							if(unformatted.startsWith("-")) {
+								unformatted = unformatted.replace("-", "– ");
+							}
+						}
+						return unformatted;
 					case DATE :
 						return StringUtils.isBlank(unformatted) == true ? "" : pgManager.uiDateFormat.format(pgManager.inputDateFormat.parse(unformatted));
 					case DATEDD :
