@@ -1,0 +1,23 @@
+package gov.fec.efo.fecprint.layout;
+
+public enum FieldType {
+	
+	STRING,
+	INDNAME,
+	ENTNAME,
+	DATE,
+	DATEDD,
+	DATEMM,
+	DATEYYYY,
+	PERCENTAGE,
+	TRANID,
+	ELECTIONTYPE,
+	ELECTIONYEAR,
+	MEMOCODE,
+	PHONEPART1,
+	PHONEPART2,
+	PHONEPART3,
+	TRANSFORM,
+	ZIP,
+	FPCID
+}
