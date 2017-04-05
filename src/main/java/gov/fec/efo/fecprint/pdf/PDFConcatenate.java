@@ -3,8 +3,6 @@
  */
 package gov.fec.efo.fecprint.pdf;
 
-import gov.fec.efo.fecprint.utility.AppProperties;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +16,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfSmartCopy;
+
+import gov.fec.efo.fecprint.utility.AppProperties;
 /**
 
 /**
@@ -32,7 +32,12 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	int startPg,endPg;
 	
 	protected final Log logger = LogFactory.getLog(PDFConcatenate.class);
+	private boolean status = true;
 	
+	public boolean isStatus() {
+		return status;
+	}
+
 	public PDFConcatenate(String opDir,String opFileName,int startPg, int endPg) throws DocumentException, IOException
 	{
 		super(opFileName + " Concatenate Pages");
@@ -126,6 +131,12 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	}
 
 	public void concateCompleted(boolean status) {
+		
+		if (!status) {
+			logger.error("FAILED Callback received : concateCompleted");
+			this.status = status; // any one status failing should set this to false, nothing sets it to true
+			return;
+		}
 		logger.debug("Callback received : concateCompleted");
 		
 	}
