@@ -8,7 +8,7 @@ public enum PaginationProperties {
 		F1S(BaseRecordType.F1S, 1),
 		F1M(BaseRecordType.F1M, -1, 1),		
 		F2(BaseRecordType.F2, -1, 1),		
-		F2S(BaseRecordType.F2S, 3),
+		F2S(BaseRecordType.F2S, 4),
 		F24(BaseRecordType.F24, -1, 1),
 		F3(BaseRecordType.F3, -1, 4),
 		F3S(BaseRecordType.F3S, -1, 4),
