@@ -71,6 +71,7 @@ public class Form1DataBuilder {
 				Record rec = new Record(-1, RecordType.F1S, recData);
 				recData.add("F1S");
 				recData.add(form.getData().get(1));
+				RecordHelper.expandArrayTo(4, recData);
 				if(additionalAff.size() > 0)
 				{
 					recData.addAll(additionalAff.get(0).getData());
