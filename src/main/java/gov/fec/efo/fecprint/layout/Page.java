@@ -101,7 +101,11 @@ public class Page {
 				double dTot = calculateTotal(fieldProps.getPos() -1);
 				if(dTot != 0)
 				{
-					m.put(fieldName,String.format("%.2f",dTot));
+					String dTotValueStr = String.format("%.2f",dTot);
+					if(dTotValueStr.startsWith("-")) {
+						dTotValueStr = dTotValueStr.replace("-", "– ");
+					}
+					m.put(fieldName,dTotValueStr);
 					pgManager.getPresetData().put(recs[0].getType().name() + "_TOTAL", String.format("%.2f",dTot));
 				}
 				else
@@ -115,7 +119,11 @@ public class Page {
 				double sTot = calculateSubTotal(fieldProps.getPos() -1);
 				if(sTot != 0)
 				{
-					m.put(fieldName,String.format("%.2f",sTot));
+					String sTotValueStr = String.format("%.2f",sTot);
+					if(sTotValueStr.startsWith("-")) {
+						sTotValueStr = sTotValueStr.replace("-", "– ");
+					}
+					m.put(fieldName,sTotValueStr);
 				}
 				else
 				{
@@ -237,6 +245,9 @@ public class Page {
 						}
 					}
 					operandValue = StringUtils.replace(operandValue, "'", "\\'");
+					if(operandValue.startsWith("– ")) {
+						operandValue = operandValue.replace("– ", "-");
+					}
 					expression = StringUtils.replace(expression, "$" + operandName + "$", operandValue);
 					delimiterStart = -1;
 					delimiterEnd = -1;
@@ -250,11 +261,19 @@ public class Page {
 				if(expressionResult instanceof Double)
 				{
 					Double dbl = (Double)expressionResult;
-					m.put(fldName,String.format("%.2f",dbl.doubleValue()));
+					String expressionValue = String.format("%.2f",dbl.doubleValue());
+					if(expressionValue.startsWith("-")) {
+						expressionValue = expressionValue.replace("-", "– ");
+					}
+					m.put(fldName,expressionValue);
 				}
 				else
 				{
-					m.put(fldName,String.valueOf(expressionResult));
+					String expressionValue = String.valueOf(expressionResult);
+					if(expressionValue.startsWith("-")) {
+						expressionValue = expressionValue.replace("-", "– ");
+					}
+					m.put(fldName,expressionValue);
 				}
 			}
 		}
