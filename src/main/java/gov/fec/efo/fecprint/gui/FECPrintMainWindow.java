@@ -25,8 +25,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.fec.efo.fecprint.utility.AppProperties;
 import gov.fec.efo.fecprint.utility.Utility;
@@ -37,7 +37,7 @@ public class FECPrintMainWindow extends JFrame implements ActionListener, Change
 	static Vector<String> mruFiles = new Vector<String>(); 
 	static Vector<File> tempDirs = new Vector<File>();
 	static String  mostRecentDocumentDir = null;
-	private static Log logger;	
+	private static Logger logger;	
 	private FilingTabs cl = null;
 	private JToolBar toolbar = null;
 	private JMenuItem  m_MenuItemPrint = null;
@@ -46,7 +46,7 @@ public class FECPrintMainWindow extends JFrame implements ActionListener, Change
 	static 
 	{
 		try {
-			logger = LogFactory.getLog(Class.forName("gov.fec.efo.fecprint.gui.FECPrintMainWindow"));
+			logger = LoggerFactory.getLogger(Class.forName("gov.fec.efo.fecprint.gui.FECPrintMainWindow"));
 		} catch (Exception e) {			
 			e.printStackTrace();
 		} 
@@ -396,7 +396,7 @@ public class FECPrintMainWindow extends JFrame implements ActionListener, Change
 				}
 				catch(Exception excpt)
 				{
-					logger.error(excpt);
+					logger.error(excpt.getMessage());
 				}
 		}
 

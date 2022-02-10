@@ -9,8 +9,8 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.fec.efo.fecprint.gui.FECPrintMainWindow;
 import gov.fec.efo.fecprint.pdf.PDFConcatenate;
@@ -24,7 +24,7 @@ import gov.fec.efo.fecprint.utility.Utility;
  */
 public class FECPrint {
 
-	private final static Log logger = LogFactory.getLog(FECPrint.class);
+	private static final Logger logger = LoggerFactory.getLogger(FECPrint.class);
 
 	public static void main(String[] args) {
 		try {
@@ -181,7 +181,7 @@ public class FECPrint {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error(e);
+			logger.error(e.getMessage());
 			e.printStackTrace(System.err);
 			System.exit(1);
 		} finally {

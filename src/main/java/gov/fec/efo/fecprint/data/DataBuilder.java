@@ -16,9 +16,10 @@ import java.util.Vector;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrTokenizer;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import gov.fec.efo.fecprint.burst.BurstPDF;
 import gov.fec.efo.fecprint.paginate.Pagination;
 import gov.fec.efo.fecprint.utility.Utility;
 
@@ -28,7 +29,7 @@ import gov.fec.efo.fecprint.utility.Utility;
  */
 public class DataBuilder {
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private String dataFileName;
 	private TreeMap<RecordType,Vector<Record>> recordBuckets;	

@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.paginate.PaginationProperties;
@@ -18,7 +18,7 @@ import gov.fec.efo.fecprint.utility.AppProperties;
 
 public class PageFactory {
 
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private static PageFactory singleton;
 	private HashMap<String, Map> pageManagers;
@@ -101,7 +101,7 @@ public class PageFactory {
 					instream.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					logger.error(e);
+					logger.error(e.getMessage());
 				}
 		}
 		return m;

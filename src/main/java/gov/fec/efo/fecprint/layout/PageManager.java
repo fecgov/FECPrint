@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.data.DataBuilder;
 import gov.fec.efo.fecprint.utility.ThreadSafeSimpleDateFormat;

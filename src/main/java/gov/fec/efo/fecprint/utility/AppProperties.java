@@ -14,8 +14,8 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Milind
@@ -36,12 +36,12 @@ public class AppProperties {
 	public static final String VERSION = "VERSION";
 	
 	private static Properties prop = null; 
-	private static Log logger;
+	private static Logger logger;
 	
 	static 
 	{
 		try {
-			logger = LogFactory.getLog(Class.forName("gov.fec.efo.fecprint.utility.AppProperties"));
+			logger = LoggerFactory.getLogger(Class.forName("gov.fec.efo.fecprint.utility.AppProperties"));
 		} catch (Exception e) {			
 			e.printStackTrace();
 		} 
@@ -98,7 +98,7 @@ public class AppProperties {
 					instream.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					logger.error(e);
+					logger.error(e.getMessage());
 				}
 		}
 	}

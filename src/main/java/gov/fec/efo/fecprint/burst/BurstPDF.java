@@ -22,13 +22,12 @@ import java.net.MalformedURLException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogConfigurationException;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BurstPDF {
 
-	private static final Log logger = LogFactory.getLog(BurstPDF.class);
+	private static final Logger logger = LoggerFactory.getLogger(BurstPDF.class);
 
   public static void main(String[] args) throws Exception {
 

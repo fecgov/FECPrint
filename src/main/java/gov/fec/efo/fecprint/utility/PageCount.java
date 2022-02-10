@@ -2,12 +2,12 @@ package gov.fec.efo.fecprint.utility;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.RandomAccessFileOrArray;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PageCount {
 
-	private static final Log logger = LogFactory.getLog(PageCount.class);
+	private static final Logger logger = LoggerFactory.getLogger(PageCount.class);
 
 	public static void main(String[] args) throws Exception {
 

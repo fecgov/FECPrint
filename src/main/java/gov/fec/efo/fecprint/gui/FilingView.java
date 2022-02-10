@@ -20,8 +20,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.DocumentException;
 import gov.fec.efo.fecprint.FECPrintHelper;
@@ -51,7 +51,7 @@ public class FilingView extends JSplitPane implements TreeSelectionListener {
 	private int currentPageInView;
 	PDFStamperTask pdfTask;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public FilingView (File inputFile) throws Exception
 	{
@@ -190,7 +190,7 @@ public class FilingView extends JSplitPane implements TreeSelectionListener {
 		}
 		catch (IOException eX) 
         {			
-			logger.error(eX);
+			logger.error(eX.getMessage());
 		}
 		/*
         if (node.isLeaf()) 
@@ -201,7 +201,7 @@ public class FilingView extends JSplitPane implements TreeSelectionListener {
             showPage(pageNo);           
         } */ catch (DocumentException eDoc) 
         {
-        	logger.error(eDoc);
+        	logger.error(eDoc.getMessage());
 		} 
 		
         

@@ -6,16 +6,16 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RecordHelper {
 	
-	private static Log logger = null;
+	private static Logger logger = null;
 	static 
 	{
 		try {
-			logger = LogFactory.getLog(Class.forName("gov.fec.efo.fecprint.data.RecordHelper"));
+			logger = LoggerFactory.getLogger(Class.forName("gov.fec.efo.fecprint.data.RecordHelper"));
 		} catch (Exception e) {			
 			e.printStackTrace();
 		} 
