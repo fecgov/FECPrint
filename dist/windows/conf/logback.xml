@@ -16,7 +16,7 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>%-4r [%t] %-5p %c %x - %m%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
