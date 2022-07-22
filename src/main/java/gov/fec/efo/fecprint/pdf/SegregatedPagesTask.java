@@ -13,8 +13,8 @@ import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.math.IntRange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -47,7 +47,7 @@ public class SegregatedPagesTask extends Thread implements PDFStamperTaskListene
 	List<PDFStamperTaskListener> listPDFStamperTaskListener;
 	Vector<SegregatedPagesTaskListener> listeners;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public SegregatedPagesTask(String opDir, PageManager pgMgr,BaseRecordType coverPageType,String opFile, int startPg, int endPg) 
 	{

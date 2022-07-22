@@ -7,14 +7,14 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Utility
 {
 	private static Frame mainWnd = null;
-	private static Log logger = LogFactory.getLog(Utility.class);
+	private static Logger logger = LoggerFactory.getLogger(Utility.class);
 	private static ScriptEngine engine;
 		
 	public static void freeUpMemory(String message)
@@ -65,7 +65,7 @@ public class Utility
 	
   public static void reportError(Exception e,boolean popupMessage)
   {
-	  	logger.error(e);	  	
+	  	logger.error(e.getMessage());	  	
 		if (popupMessage)
 		{
 			MessageDialog dlg = new MessageDialog(Utility.getMainWnd(),e.getClass().getName(),e.getMessage() + "\n Please report this error to techsupport@egov.com");

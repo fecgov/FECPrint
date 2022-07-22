@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -31,7 +31,7 @@ public class PDFConcatenate extends Thread implements PDFConcatenateTaskListener
 	String opDir,opFileName;
 	int startPg,endPg;
 	
-	protected final Log logger = LogFactory.getLog(PDFConcatenate.class);
+	protected final Logger logger = LoggerFactory.getLogger(PDFConcatenate.class);
 	private boolean status = true;
 	
 	public boolean isStatus() {

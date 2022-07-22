@@ -56,8 +56,8 @@ public class Form1DataBuilder {
 			
 			if(additionalJF.size() > 0)
 			{
-				RecordHelper.expandArrayTo(99, form.getData());
-				for(int i = 0 ; i < 4 && additionalJF.size() > 0 ; i++ )
+				RecordHelper.expandArrayTo(101, form.getData());
+				for(int i = 0 ; i < 2 && additionalJF.size() > 0 ; i++ )
 				{
 					form.getData().addAll(additionalJF.get(0).getData());
 					form.addToMergedRecords(additionalJF.remove(0));

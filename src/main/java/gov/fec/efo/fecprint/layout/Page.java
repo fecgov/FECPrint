@@ -15,8 +15,8 @@ import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Page {
 	
@@ -30,7 +30,7 @@ public class Page {
 	private Vector<Record> refToAllRecordsInSchedule = null;
 	PageManager pgManager;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	
 	public Page(Map fieldMapping, long pageNo, PaginationProperties pp,PageManager m) {
@@ -394,7 +394,7 @@ public class Page {
 							}
 							catch(ParseException eParse)
 							{
-								logger.debug(eParse);
+								logger.debug(eParse.getMessage());
 								return "";
 							}							
 						} 
@@ -410,7 +410,7 @@ public class Page {
 							}
 							catch(ParseException eParse)
 							{
-								logger.debug(eParse);
+								logger.debug(eParse.getMessage());
 								return "";
 							}							
 						}
@@ -426,7 +426,7 @@ public class Page {
 							}
 							catch(ParseException eParse)
 							{
-								logger.debug(eParse);
+								logger.debug(eParse.getMessage());
 								return unformatted;
 							}							
 						}						
@@ -455,7 +455,7 @@ public class Page {
 							}
 							catch(NumberFormatException eNumFormat)
 							{
-								logger.debug(eNumFormat);
+								logger.debug(eNumFormat.getMessage());
 								return unformatted;
 							}							
 						}

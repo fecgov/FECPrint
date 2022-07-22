@@ -4,8 +4,8 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.teamdev.jxbrowser.Browser;
 import com.teamdev.jxbrowser.BrowserFactory;
@@ -15,7 +15,7 @@ class PageView extends JPanel
 {
 	String pdfDir;
 	Browser browser;
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	public PageView(String dir)
 	{
 		super();

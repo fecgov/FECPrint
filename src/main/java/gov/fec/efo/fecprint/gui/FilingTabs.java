@@ -19,8 +19,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.DocumentException;
 import gov.fec.efo.fecprint.data.Record;
@@ -32,7 +32,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 	JTextField pagenoField;
 	JTextField totalPages;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public FilingTabs(FECPrintMainWindow a_Parent)
 	{
@@ -82,7 +82,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 							}
 							catch(NumberFormatException eNum)
 							{
-								logger.debug(eNum);
+								logger.debug(eNum.getMessage());
 							}
 						}
 					}
@@ -97,7 +97,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 							}
 							catch(NumberFormatException eNum)
 							{
-								logger.debug(eNum);
+								logger.debug(eNum.getMessage());
 							}
 						}
 					}
@@ -112,7 +112,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 							}
 							catch(NumberFormatException eNum)
 							{
-								logger.debug(eNum);
+								logger.debug(eNum.getMessage());
 							}
 						}
 					}
@@ -127,7 +127,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 							}
 							catch(NumberFormatException eNum)
 							{
-								logger.debug(eNum);
+								logger.debug(eNum.getMessage());
 							}
 						}
 					}
@@ -142,7 +142,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 							}
 							catch(NumberFormatException eNum)
 							{
-								logger.debug(eNum);
+								logger.debug(eNum.getMessage());
 							}
 						}
 					}
@@ -154,7 +154,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 			}
 			catch(Exception eX)
 			{
-				logger.error(eX);				
+				logger.error(eX.getMessage());				
 			}
 	}
 	
@@ -304,7 +304,7 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 			}
 			catch(NumberFormatException eNum)
 			{
-				logger.debug(eNum);
+				logger.debug(eNum.getMessage());
 			}
 		}
 	}
@@ -332,15 +332,15 @@ public class FilingTabs extends JTabbedPane implements ActionListener, ChangeLis
 				}
 				catch(NumberFormatException eNum)
 				{
-					logger.debug(eNum);
+					logger.debug(eNum.getMessage());
 				} 
 				catch (IOException e) 
 				{					
-					logger.debug(e);
+					logger.debug(e.getMessage());
 				} 
 				catch (DocumentException e) 
 				{					
-					logger.debug(e);
+					logger.debug(e.getMessage());
 				}
 			}
 		}

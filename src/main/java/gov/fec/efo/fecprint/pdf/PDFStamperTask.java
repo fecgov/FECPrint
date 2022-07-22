@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.lang.math.IntRange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.fec.efo.fecprint.data.BaseRecordType;
 import gov.fec.efo.fecprint.layout.PageManager;
@@ -19,7 +19,7 @@ public class PDFStamperTask
 	Vector<PDFStamperThread> threadsScheduled; 
 	Vector<PDFStamperThread> threadsRunning;
 	
-	protected final Log logger = LogFactory.getLog(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public PDFStamperTask()
 	{
